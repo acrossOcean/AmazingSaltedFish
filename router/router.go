@@ -18,9 +18,9 @@ func InitStructRouter(router *gin.RouterGroup) {
 	{
 		r.POST("/", controller.CreateStruct)
 		r.PUT("/", controller.UpdateStruct)
-		r.GET("/:id", controller.GetStruct)
 		r.DELETE("/:id", controller.DeleteStruct)
 
+		r.GET("/detail/:id", controller.GetStruct)
 		r.GET("/list", controller.GetStructList)
 	}
 }

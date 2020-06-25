@@ -11,12 +11,15 @@ type StructInfo struct {
 
 type GetStructResp struct {
 	BaseResp
+	// 结构体信息
 	Info StructInfo `json:"info"`
 }
 
 type CreateStructReq struct {
-	Fields  []Field `json:"fieldList"`
-	Comment string  `json:"comment"`
+	// 字段信息
+	Fields []Field `json:"fieldList"`
+	// 字段注释
+	Comment string `json:"comment"`
 }
 
 type CreateStructResp struct {

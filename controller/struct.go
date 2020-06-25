@@ -3,18 +3,18 @@ package controller
 import "github.com/gin-gonic/gin"
 
 // @Summary 获取一个结构信息
-// @Tags struct,get
+// @Tags 结构体信息,获取
 // @Accept json
 // @Produce json
 // @Param structId path int true "struct的ID" minimum(1)
 // @Success 200 {object} model.GetStructResp
 // @Failure 400 {object} model.BaseResp
-// @Router /{id} [get]
+// @Router /detail/{id} [get]
 func GetStruct(ctx *gin.Context) {
 }
 
 // @Summary 新建一个结构信息
-// @Tags struct,create
+// @Tags 结构体信息,新建
 // @Accept json
 // @Produce json
 // @Param structInfo body model.CreateStructReq true "结构体信息"
@@ -25,7 +25,7 @@ func CreateStruct(ctx *gin.Context) {
 }
 
 // @Summary 更新一个结构信息
-// @Tags struct,update
+// @Tags 结构体信息,更新
 // @Accept json
 // @Produce json
 // @Param structInfo body model.UpdateStructReq true "结构体信息"
@@ -36,7 +36,7 @@ func UpdateStruct(ctx *gin.Context) {
 }
 
 // @Summary 删除一个结构信息
-// @Tags struct,delete
+// @Tags 结构体信息,删除
 // @Accept json
 // @Produce json
 // @Param structId path int true "struct的ID" minimum(1)
@@ -47,7 +47,7 @@ func DeleteStruct(ctx *gin.Context) {
 }
 
 // @Summary 获取结构信息列表
-// @Tags struct,get,list
+// @Tags 结构体信息,获取,列表
 // @Accept json
 // @Produce json
 // @Param pageNum query int true "页数" minimum(1)

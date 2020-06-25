@@ -1,11 +1,15 @@
 package model
 
 type PageReq struct {
-	PageNum  int `json:"pageNum"`
+	// 页数
+	PageNum int `json:"pageNum"`
+	// 每页多少条信息
 	PageSize int `json:"pageSize"`
 }
 
 type BaseResp struct {
+	// 结果码
 	Code string
-	Msg  string
+	// 提示信息
+	Msg string
 }

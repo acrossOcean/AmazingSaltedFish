@@ -20,18 +20,20 @@ func init() {
 		"_appName":    constant.ConstAppName,
 		"_appVersion": constant.ConstAppVersion,
 	})
+
+	//log.SetLevel(config.DefaultInt("log>>level", 0))
 }
 
 // @title Amazing Salted Fish API
 // @version 0.0.1
-// @description this is amazing salted fish swagger api page.
+// @description this is [amazing salted fish] swagger api page.
 // @termsOfService http://www.amazingsaltedfish.com
 
-// @contact.name guoyueyang
+// @contact.name author:guoyueyang
 // @contact.url http://www.amazingsaltedfish.com
 // @contact.email guoyueyang@126.com
 
-// @license.name MIT
+// @license.name License:MIT
 // @license.url https://spdx.org/licenses/MIT.html
 func main() {
 	// 初始化配置文件
@@ -52,6 +54,7 @@ func main() {
 	router.InitRouter(r)
 
 	// swagger 支持
+	log.Debug("是否开启swagger:%v", config.DefaultBool("swagger>>enableSwagger", false))
 	if config.DefaultBool("swagger>>enableSwagger", false) {
 		docs.SwaggerInfo.Host = config.DefaultString("main>>listenAddr", ":8080")
 		docs.SwaggerInfo.BasePath = "/api/v1"

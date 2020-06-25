@@ -20,12 +20,12 @@ var doc = `{
         "title": "{{.Title}}",
         "termsOfService": "http://www.amazingsaltedfish.com",
         "contact": {
-            "name": "guoyueyang",
+            "name": "author guoyueyang",
             "url": "http://www.amazingsaltedfish.com",
             "email": "guoyueyang@126.com"
         },
         "license": {
-            "name": "MIT",
+            "name": "License MIT",
             "url": "https://spdx.org/licenses/MIT.html"
         },
         "version": "{{.Version}}"
@@ -42,8 +42,8 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "struct",
-                    "update"
+                    "结构体信息",
+                    "更新"
                 ],
                 "summary": "更新一个结构信息",
                 "parameters": [
@@ -80,8 +80,8 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "struct",
-                    "create"
+                    "结构体信息",
+                    "新建"
                 ],
                 "summary": "新建一个结构信息",
                 "parameters": [
@@ -111,6 +111,44 @@ var doc = `{
                 }
             }
         },
+        "/detail/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "结构体信息",
+                    "获取"
+                ],
+                "summary": "获取一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "struct的ID",
+                        "name": "structId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetStructResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
         "/list": {
             "get": {
                 "consumes": [
@@ -120,9 +158,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "struct",
-                    "get",
-                    "list"
+                    "结构体信息",
+                    "获取",
+                    "列表"
                 ],
                 "summary": "获取结构信息列表",
                 "parameters": [
@@ -164,42 +202,6 @@ var doc = `{
             }
         },
         "/{id}": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "struct",
-                    "get"
-                ],
-                "summary": "获取一个结构信息",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "struct的ID",
-                        "name": "structId",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.GetStructResp"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.BaseResp"
-                        }
-                    }
-                }
-            },
             "delete": {
                 "consumes": [
                     "application/json"
@@ -208,8 +210,8 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "struct",
-                    "delete"
+                    "结构体信息",
+                    "删除"
                 ],
                 "summary": "删除一个结构信息",
                 "parameters": [
@@ -243,9 +245,11 @@ var doc = `{
             "type": "object",
             "properties": {
                 "code": {
+                    "description": "结果码",
                     "type": "string"
                 },
                 "msg": {
+                    "description": "提示信息",
                     "type": "string"
                 }
             }
@@ -254,9 +258,11 @@ var doc = `{
             "type": "object",
             "properties": {
                 "comment": {
+                    "description": "字段注释",
                     "type": "string"
                 },
                 "fieldList": {
+                    "description": "字段信息",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/model.Field"
@@ -268,6 +274,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "code": {
+                    "description": "结果码",
                     "type": "string"
                 },
                 "id": {
@@ -275,6 +282,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "msg": {
+                    "description": "提示信息",
                     "type": "string"
                 }
             }
@@ -283,6 +291,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "code": {
+                    "description": "结果码",
                     "type": "string"
                 },
                 "id": {
@@ -290,6 +299,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "msg": {
+                    "description": "提示信息",
                     "type": "string"
                 }
             }
@@ -327,6 +337,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "code": {
+                    "description": "结果码",
                     "type": "string"
                 },
                 "list": {
@@ -337,6 +348,7 @@ var doc = `{
                     }
                 },
                 "msg": {
+                    "description": "提示信息",
                     "type": "string"
                 }
             }
@@ -345,13 +357,16 @@ var doc = `{
             "type": "object",
             "properties": {
                 "code": {
+                    "description": "结果码",
                     "type": "string"
                 },
                 "info": {
+                    "description": "结构体信息",
                     "type": "object",
                     "$ref": "#/definitions/model.StructInfo"
                 },
                 "msg": {
+                    "description": "提示信息",
                     "type": "string"
                 }
             }
@@ -400,6 +415,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "code": {
+                    "description": "结果码",
                     "type": "string"
                 },
                 "id": {
@@ -407,6 +423,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "msg": {
+                    "description": "提示信息",
                     "type": "string"
                 }
             }
@@ -430,7 +447,7 @@ var SwaggerInfo = swaggerInfo{
 	BasePath:    "",
 	Schemes:     []string{},
 	Title:       "Amazing Salted Fish API",
-	Description: "this is amazing salted fish swagger api page.",
+	Description: "this is [amazing salted fish] swagger api page.",
 }
 
 type s struct{}
