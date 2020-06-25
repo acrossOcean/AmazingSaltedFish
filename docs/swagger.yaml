@@ -1,0 +1,268 @@
+definitions:
+  model.BaseResp:
+    properties:
+      code:
+        type: string
+      msg:
+        type: string
+    type: object
+  model.CreateStructReq:
+    properties:
+      comment:
+        type: string
+      fieldList:
+        items:
+          $ref: '#/definitions/model.Field'
+        type: array
+    type: object
+  model.CreateStructResp:
+    properties:
+      code:
+        type: string
+      id:
+        description: 创建成功后的ID
+        type: integer
+      msg:
+        type: string
+    type: object
+  model.DeleteStructResp:
+    properties:
+      code:
+        type: string
+      id:
+        description: 删除的结构体ID
+        type: integer
+      msg:
+        type: string
+    type: object
+  model.Field:
+    properties:
+      fieldComment:
+        description: 字段注释
+        type: string
+      fieldDefaultValue:
+        description: 默认值
+        type: string
+      fieldIsList:
+        description: 是否为 列表
+        type: boolean
+      fieldName:
+        description: 字段名
+        type: string
+      fieldStructId:
+        description: 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
+        type: integer
+      fieldType:
+        description: 字段类型
+        type: integer
+    type: object
+  model.GetStructListResp:
+    properties:
+      code:
+        type: string
+      list:
+        description: 结构体列表
+        items:
+          $ref: '#/definitions/model.StructInfo'
+        type: array
+      msg:
+        type: string
+    type: object
+  model.GetStructResp:
+    properties:
+      code:
+        type: string
+      info:
+        $ref: '#/definitions/model.StructInfo'
+        type: object
+      msg:
+        type: string
+    type: object
+  model.StructInfo:
+    properties:
+      comment:
+        description: 备注信息
+        type: string
+      fieldList:
+        description: 字段
+        items:
+          $ref: '#/definitions/model.Field'
+        type: array
+      id:
+        description: 结构体ID
+        type: integer
+    type: object
+  model.UpdateStructReq:
+    properties:
+      comment:
+        description: 备注信息
+        type: string
+      fieldList:
+        description: 字段
+        items:
+          $ref: '#/definitions/model.Field'
+        type: array
+      id:
+        description: 结构体ID
+        type: integer
+    type: object
+  model.UpdateStructResp:
+    properties:
+      code:
+        type: string
+      id:
+        description: 更新的结构体ID
+        type: integer
+      msg:
+        type: string
+    type: object
+info:
+  contact:
+    email: guoyueyang@126.com
+    name: guoyueyang
+    url: http://www.amazingsaltedfish.com
+  description: this is amazing salted fish swagger api page.
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT.html
+  termsOfService: http://www.amazingsaltedfish.com
+  title: Amazing Salted Fish API
+  version: 0.0.1
+paths:
+  /:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 结构体信息
+        in: body
+        name: structInfo
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateStructReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CreateStructResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResp'
+      summary: 新建一个结构信息
+      tags:
+      - struct
+      - create
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 结构体信息
+        in: body
+        name: structInfo
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateStructReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UpdateStructResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResp'
+      summary: 更新一个结构信息
+      tags:
+      - struct
+      - update
+  /{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: struct的ID
+        in: path
+        name: structId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.DeleteStructResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResp'
+      summary: 删除一个结构信息
+      tags:
+      - struct
+      - delete
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: struct的ID
+        in: path
+        name: structId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetStructResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResp'
+      summary: 获取一个结构信息
+      tags:
+      - struct
+      - get
+  /list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 页数
+        in: query
+        name: pageNum
+        required: true
+        type: integer
+      - description: 每页大小
+        enum:
+        - 10
+        - 20
+        - 50
+        - 100
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GetStructListResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResp'
+      summary: 获取结构信息列表
+      tags:
+      - struct
+      - get
+      - list
+swagger: "2.0"
