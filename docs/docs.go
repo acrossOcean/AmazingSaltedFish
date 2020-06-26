@@ -20,12 +20,12 @@ var doc = `{
         "title": "{{.Title}}",
         "termsOfService": "http://www.amazingsaltedfish.com",
         "contact": {
-            "name": "author guoyueyang",
+            "name": "author:guoyueyang",
             "url": "http://www.amazingsaltedfish.com",
             "email": "guoyueyang@126.com"
         },
         "license": {
-            "name": "License MIT",
+            "name": "License:MIT",
             "url": "https://spdx.org/licenses/MIT.html"
         },
         "version": "{{.Version}}"
@@ -33,7 +33,7 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/": {
+        "/struct/": {
             "put": {
                 "consumes": [
                     "application/json"
@@ -111,7 +111,7 @@ var doc = `{
                 }
             }
         },
-        "/detail/{id}": {
+        "/struct/detail/{id}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -128,7 +128,7 @@ var doc = `{
                     {
                         "type": "integer",
                         "description": "struct的ID",
-                        "name": "structId",
+                        "name": "id",
                         "in": "path",
                         "required": true
                     }
@@ -149,7 +149,7 @@ var doc = `{
                 }
             }
         },
-        "/list": {
+        "/struct/list": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -166,20 +166,14 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "页数",
+                        "description": "分页信息, 页数从1开始",
                         "name": "pageNum",
                         "in": "query",
                         "required": true
                     },
                     {
-                        "enum": [
-                            10,
-                            20,
-                            50,
-                            100
-                        ],
                         "type": "integer",
-                        "description": "每页大小",
+                        "description": "分页信息, 每页最大500",
                         "name": "pageSize",
                         "in": "query",
                         "required": true
@@ -201,7 +195,7 @@ var doc = `{
                 }
             }
         },
-        "/{id}": {
+        "/struct/{id}": {
             "delete": {
                 "consumes": [
                     "application/json"
@@ -218,7 +212,7 @@ var doc = `{
                     {
                         "type": "integer",
                         "description": "struct的ID",
-                        "name": "structId",
+                        "name": "id",
                         "in": "path",
                         "required": true
                     }
@@ -246,11 +240,40 @@ var doc = `{
             "properties": {
                 "code": {
                     "description": "结果码",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "msg": {
                     "description": "提示信息",
                     "type": "string"
+                }
+            }
+        },
+        "model.CreateFieldInfo": {
+            "type": "object",
+            "properties": {
+                "fieldComment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "fieldIsList": {
+                    "description": "是否为 列表",
+                    "type": "boolean"
+                },
+                "fieldName": {
+                    "description": "字段名",
+                    "type": "string"
+                },
+                "fieldSort": {
+                    "description": "排序位置",
+                    "type": "integer"
+                },
+                "fieldStructId": {
+                    "description": "对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用",
+                    "type": "integer"
+                },
+                "fieldType": {
+                    "description": "字段类型",
+                    "type": "integer"
                 }
             }
         },
@@ -265,7 +288,7 @@ var doc = `{
                     "description": "字段信息",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Field"
+                        "$ref": "#/definitions/model.CreateFieldInfo"
                     }
                 }
             }
@@ -275,7 +298,7 @@ var doc = `{
             "properties": {
                 "code": {
                     "description": "结果码",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "id": {
                     "description": "创建成功后的ID",
@@ -292,7 +315,7 @@ var doc = `{
             "properties": {
                 "code": {
                     "description": "结果码",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "id": {
                     "description": "删除的结构体ID",
@@ -311,9 +334,9 @@ var doc = `{
                     "description": "字段注释",
                     "type": "string"
                 },
-                "fieldDefaultValue": {
-                    "description": "默认值",
-                    "type": "string"
+                "fieldId": {
+                    "description": "字段ID",
+                    "type": "integer"
                 },
                 "fieldIsList": {
                     "description": "是否为 列表",
@@ -323,12 +346,20 @@ var doc = `{
                     "description": "字段名",
                     "type": "string"
                 },
+                "fieldSort": {
+                    "description": "排序位置",
+                    "type": "integer"
+                },
                 "fieldStructId": {
                     "description": "对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用",
                     "type": "integer"
                 },
                 "fieldType": {
                     "description": "字段类型",
+                    "type": "integer"
+                },
+                "parentId": {
+                    "description": "对应结构体ID",
                     "type": "integer"
                 }
             }
@@ -338,7 +369,7 @@ var doc = `{
             "properties": {
                 "code": {
                     "description": "结果码",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "list": {
                     "description": "结构体列表",
@@ -358,7 +389,7 @@ var doc = `{
             "properties": {
                 "code": {
                     "description": "结果码",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "info": {
                     "description": "结构体信息",
@@ -416,7 +447,7 @@ var doc = `{
             "properties": {
                 "code": {
                     "description": "结果码",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "id": {
                     "description": "更新的结构体ID",

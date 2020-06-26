@@ -3,10 +3,31 @@ definitions:
     properties:
       code:
         description: 结果码
-        type: string
+        type: integer
       msg:
         description: 提示信息
         type: string
+    type: object
+  model.CreateFieldInfo:
+    properties:
+      fieldComment:
+        description: 字段注释
+        type: string
+      fieldIsList:
+        description: 是否为 列表
+        type: boolean
+      fieldName:
+        description: 字段名
+        type: string
+      fieldSort:
+        description: 排序位置
+        type: integer
+      fieldStructId:
+        description: 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
+        type: integer
+      fieldType:
+        description: 字段类型
+        type: integer
     type: object
   model.CreateStructReq:
     properties:
@@ -16,14 +37,14 @@ definitions:
       fieldList:
         description: 字段信息
         items:
-          $ref: '#/definitions/model.Field'
+          $ref: '#/definitions/model.CreateFieldInfo'
         type: array
     type: object
   model.CreateStructResp:
     properties:
       code:
         description: 结果码
-        type: string
+        type: integer
       id:
         description: 创建成功后的ID
         type: integer
@@ -35,7 +56,7 @@ definitions:
     properties:
       code:
         description: 结果码
-        type: string
+        type: integer
       id:
         description: 删除的结构体ID
         type: integer
@@ -48,27 +69,33 @@ definitions:
       fieldComment:
         description: 字段注释
         type: string
-      fieldDefaultValue:
-        description: 默认值
-        type: string
+      fieldId:
+        description: 字段ID
+        type: integer
       fieldIsList:
         description: 是否为 列表
         type: boolean
       fieldName:
         description: 字段名
         type: string
+      fieldSort:
+        description: 排序位置
+        type: integer
       fieldStructId:
         description: 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
         type: integer
       fieldType:
         description: 字段类型
         type: integer
+      parentId:
+        description: 对应结构体ID
+        type: integer
     type: object
   model.GetStructListResp:
     properties:
       code:
         description: 结果码
-        type: string
+        type: integer
       list:
         description: 结构体列表
         items:
@@ -82,7 +109,7 @@ definitions:
     properties:
       code:
         description: 结果码
-        type: string
+        type: integer
       info:
         $ref: '#/definitions/model.StructInfo'
         description: 结构体信息
@@ -123,7 +150,7 @@ definitions:
     properties:
       code:
         description: 结果码
-        type: string
+        type: integer
       id:
         description: 更新的结构体ID
         type: integer
@@ -134,17 +161,17 @@ definitions:
 info:
   contact:
     email: guoyueyang@126.com
-    name: author guoyueyang
+    name: author:guoyueyang
     url: http://www.amazingsaltedfish.com
   description: this is [amazing salted fish] swagger api page.
   license:
-    name: License MIT
+    name: License:MIT
     url: https://spdx.org/licenses/MIT.html
   termsOfService: http://www.amazingsaltedfish.com
   title: Amazing Salted Fish API
   version: 0.0.1
 paths:
-  /:
+  /struct/:
     post:
       consumes:
       - application/json
@@ -195,14 +222,14 @@ paths:
       tags:
       - 结构体信息
       - 更新
-  /{id}:
+  /struct/{id}:
     delete:
       consumes:
       - application/json
       parameters:
       - description: struct的ID
         in: path
-        name: structId
+        name: id
         required: true
         type: integer
       produces:
@@ -220,14 +247,14 @@ paths:
       tags:
       - 结构体信息
       - 删除
-  /detail/{id}:
+  /struct/detail/{id}:
     get:
       consumes:
       - application/json
       parameters:
       - description: struct的ID
         in: path
-        name: structId
+        name: id
         required: true
         type: integer
       produces:
@@ -245,22 +272,17 @@ paths:
       tags:
       - 结构体信息
       - 获取
-  /list:
+  /struct/list:
     get:
       consumes:
       - application/json
       parameters:
-      - description: 页数
+      - description: 分页信息, 页数从1开始
         in: query
         name: pageNum
         required: true
         type: integer
-      - description: 每页大小
-        enum:
-        - 10
-        - 20
-        - 50
-        - 100
+      - description: 分页信息, 每页最大500
         in: query
         name: pageSize
         required: true

@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strings"
 
 	"AmazingSaltedFish/constant"
 	"AmazingSaltedFish/docs"
@@ -47,7 +48,7 @@ func main() {
 		log.Error("初始化数据库错误:%s", err.Error())
 		os.Exit(1)
 	}
-	defer log.Error(service.CloseDB())
+	defer service.CloseDB()
 
 	engine := gin.Default()
 	r := engine.Group("/api")
@@ -56,7 +57,13 @@ func main() {
 	// swagger 支持
 	log.Debug("是否开启swagger:%v", config.DefaultBool("swagger>>enableSwagger", false))
 	if config.DefaultBool("swagger>>enableSwagger", false) {
-		docs.SwaggerInfo.Host = config.DefaultString("main>>listenAddr", ":8080")
+		addr := config.DefaultString("main>>listenAddr", ":8080")
+		if strs := strings.Split(addr, ":"); len(strs) == 2 {
+			if strs[0] == "0.0.0.0" || strs[0] == "" {
+				addr = "localhost" + ":" + strs[1]
+			}
+		}
+		docs.SwaggerInfo.Host = addr
 		docs.SwaggerInfo.BasePath = "/api/v1"
 		engine.GET("/swagger/*any", ginSwagger.DisablingWrapHandler(swaggerFiles.Handler, config.DefaultString("swagger>>closeEnvName", "ENABLE_SWAGGER")))
 	}
