@@ -22,7 +22,7 @@ func init() {
 		"_appVersion": constant.ConstAppVersion,
 	})
 
-	//log.SetLevel(config.DefaultInt("log>>level", 0))
+	log.SetLevel(log.ConvertToLevel(config.DefaultInt("log>>level", 0)))
 }
 
 // @title Amazing Salted Fish API

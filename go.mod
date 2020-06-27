@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/acrossOcean/config v0.0.0-20200625110328-e90703b37283
-	github.com/acrossOcean/log v0.0.0-20200626111745-a60e1f72e1d6
+	github.com/acrossOcean/log v0.0.0-20200627011425-24431815fb8d
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-openapi/spec v0.19.8 // indirect
