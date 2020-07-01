@@ -64,16 +64,11 @@ func CreateStruct(ctx *gin.Context) {
 
 	for _, f := range reqInfo.Fields {
 		if !check.PassCheck(
-			check.NewIntChecker(f.FType.ToInt(),
-				check.NewIntCheckOptionIN([]int{
-					model.FieldTypeString.ToInt(),
-					model.FieldTypeBool.ToInt(),
-					model.FieldTypeInt.ToInt(),
-					model.FieldTypeFloat.ToInt(),
-					model.FieldTypeStruct.ToInt()}),
+			check.NewIntChecker(f.Type.ToInt(),
+				check.NewIntCheckOptionIN(model.GetAllFieldTypeInt()),
 			),
-			check.NewStrChecker(f.FName, check.NewStrCheckOption(check.StrOperatorLenLE, 20, "")),
-			check.NewStrChecker(f.FComment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
+			check.NewStrChecker(f.Name, check.NewStrCheckOption(check.StrOperatorLenLE, 20, "")),
+			check.NewStrChecker(f.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
 		) {
 			respParamError(ctx, reqInfo)
 			return
@@ -116,15 +111,10 @@ func UpdateStruct(ctx *gin.Context) {
 	for _, f := range reqInfo.Fields {
 		if !check.PassCheck(
 			check.NewIntChecker(f.FType.ToInt(),
-				check.NewIntCheckOptionIN([]int{
-					model.FieldTypeString.ToInt(),
-					model.FieldTypeBool.ToInt(),
-					model.FieldTypeInt.ToInt(),
-					model.FieldTypeFloat.ToInt(),
-					model.FieldTypeStruct.ToInt()}),
+				check.NewIntCheckOptionIN(model.GetAllFieldTypeInt()),
 			),
-			check.NewStrChecker(f.FName, check.NewStrCheckOption(check.StrOperatorLenLE, 20, "")),
-			check.NewStrChecker(f.FComment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
+			check.NewStrChecker(f.Name, check.NewStrCheckOption(check.StrOperatorLenLE, 20, "")),
+			check.NewStrChecker(f.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
 		) {
 			respParamError(ctx, reqInfo)
 			return

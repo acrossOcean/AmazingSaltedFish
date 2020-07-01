@@ -39,8 +39,6 @@ func init() {
 func main() {
 	// 初始化配置文件
 	config.AddPath("./config.ini")
-	log.Debug(config.Get("mysql"))
-	log.Debug(config.GetCurrentCache())
 
 	// 初始化数据库
 	err := service.InitDB()

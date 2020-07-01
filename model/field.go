@@ -2,21 +2,30 @@ package model
 
 type Field struct {
 	// 字段ID
-	FId int `json:"fieldId" gorm:"column:id"`
-	// 对应结构体ID
+	Id int `json:"fieldId" gorm:"column:id"`
+	// 对应 父级 ID (可能还是字段, 也可能是结构体)
 	ParentId int `json:"parentId" gorm:"column:parent_id"`
 	// 字段类型
 	FType FieldType `json:"fieldType" gorm:"column:field_type" swaggertype:"integer"`
 	// 字段名
-	FName string `json:"fieldName" gorm:"column:field_name"`
+	Name string `json:"name" gorm:"column:name"`
 	// 字段注释
-	FComment string `json:"fieldComment" gorm:"column:field_comment"`
-	// 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
-	FStructId int `json:"fieldStructId" gorm:"column:field_struct_id"`
+	Comment string `json:"comment" gorm:"column:comment"`
 	// 是否为 列表
-	FIsList bool `json:"fieldIsList" gorm:"column:field_is_list"`
+	IsList bool `json:"isList" gorm:"column:is_list"`
 	// 排序位置
-	FSort int `json:"fieldSort" gorm:"column:field_sort"`
+	Sort int `json:"sort" gorm:"column:sort"`
+
+	// 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
+	StructId int `json:"structId" gorm:"column:struct_id"`
+
+	// 当fieldType 为 map 时
+	MapKeyFieldId   int `json:"mapKeyFieldId" gorm:"column:map_key_field_id"`
+	MapValueFieldId int `json:"mapValueFieldId" gorm:"column:map_value_field_id"`
+
+	// 如果是固定值, 那么记录
+	IsConst   bool   `json:"isConst" gorm:"column:is_const"`
+	ConstData []byte `json:"constData" gorm:"type:binary;column:const_data"`
 }
 
 func (receiver Field) TableName() string {
@@ -28,42 +37,42 @@ type FieldList []Field
 func (receiver FieldList) Len() int { return len(receiver) }
 
 func (receiver FieldList) Less(i, j int) bool {
-	if receiver[i].FSort > receiver[j].FSort {
+	if receiver[i].Sort > receiver[j].Sort {
 		return true
-	} else if receiver[i].FSort < receiver[j].FSort {
+	} else if receiver[i].Sort < receiver[j].Sort {
 		return false
 	}
 
-	return receiver[i].FId < receiver[j].FId
+	return receiver[i].Id < receiver[j].Id
 }
 
 func (receiver FieldList) Swap(i, j int) { receiver[i], receiver[j] = receiver[j], receiver[i] }
 
 type CreateFieldInfo struct {
 	// 字段类型
-	FType FieldType `json:"fieldType" swaggertype:"integer"`
+	Type FieldType `json:"type" swaggertype:"integer"`
 	// 字段名
-	FName string `json:"fieldName"`
+	Name string `json:"name"`
 	// 字段注释
-	FComment string `json:"fieldComment"`
+	Comment string `json:"comment"`
 	// 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
-	FStructId int `json:"fieldStructId"`
+	StructId int `json:"structId"`
 	// 是否为 列表
-	FIsList bool `json:"fieldIsList"`
+	IsList bool `json:"isList"`
 	// 排序位置
-	FSort int `json:"fieldSort" gorm:"column:field_sort"`
+	Sort int `json:"sort"`
 }
 
 func (receiver CreateFieldInfo) ToNormal() Field {
 	var result = Field{
-		FId:       0,
-		ParentId:  0,
-		FType:     receiver.FType,
-		FName:     receiver.FName,
-		FComment:  receiver.FComment,
-		FStructId: receiver.FStructId,
-		FIsList:   receiver.FIsList,
-		FSort:     receiver.FSort,
+		Id:       0,
+		ParentId: 0,
+		FType:    receiver.Type,
+		Name:     receiver.Name,
+		Comment:  receiver.Comment,
+		StructId: receiver.StructId,
+		IsList:   receiver.IsList,
+		Sort:     receiver.Sort,
 	}
 
 	return result
@@ -81,5 +90,33 @@ const (
 	FieldTypeBool
 	FieldTypeInt
 	FieldTypeFloat
+	FieldTypeTime
 	FieldTypeStruct
+	FieldTypeMap
+	FieldTypeInterface
 )
+
+func GetAllFieldType() []FieldType {
+	result := []FieldType{
+		FieldTypeString,
+		FieldTypeBool,
+		FieldTypeInt,
+		FieldTypeFloat,
+		FieldTypeTime,
+		FieldTypeStruct,
+		FieldTypeMap,
+		FieldTypeInterface,
+	}
+
+	return result
+}
+
+func GetAllFieldTypeInt() []int {
+	list := GetAllFieldType()
+	result := make([]int, len(list))
+	for i, ft := range list {
+		result[i] = ft.ToInt()
+	}
+
+	return result
+}

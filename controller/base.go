@@ -1,8 +1,9 @@
 package controller
 
 import (
-	"AmazingSaltedFish/model"
 	"strconv"
+
+	"AmazingSaltedFish/model"
 
 	"github.com/gin-gonic/gin"
 )

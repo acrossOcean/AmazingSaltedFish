@@ -36,6 +36,10 @@ func InitDB() (err error) {
 	return nil
 }
 
+func GetDB() *gorm.DB {
+	return _DB
+}
+
 func CloseDB() error {
 	return _DB.Close()
 }
