@@ -106,3 +106,21 @@ func (receiver *IntChecker) check() bool {
 
 	return true
 }
+
+type IdChecker struct {
+	value int
+}
+
+func NewIDChecker(value int) *IdChecker {
+	var result = &IdChecker{
+		value: value,
+	}
+
+	return result
+}
+
+func (receiver *IdChecker) check() bool {
+	return NewIntChecker(receiver.value,
+		NewIntCheckOption(IntOperatorGT, 0),
+	).check()
+}

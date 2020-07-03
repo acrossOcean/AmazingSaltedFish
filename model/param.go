@@ -9,3 +9,7 @@ const (
 	// 变量参数(一般来自于其它 node/link 返回值)
 	ParamTypeVariable
 )
+
+func (receiver ParamType) ToInt() int {
+	return int(receiver)
+}

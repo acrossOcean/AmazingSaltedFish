@@ -1,8 +1,8 @@
 package model
 
 // 实现核心, 所有核心的逻辑全放到这里
-type CoreGenerator struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBCoreGenerator struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 
 	// 实现所用语言
 	Language string `json:"language" gorm:"column:language"`
@@ -11,14 +11,14 @@ type CoreGenerator struct {
 	// Version. 实现对应版本
 	Version string `json:"version" gorm:"column:version"`
 	// 注释
-	Common string `json:"common" gorm:"column:common"`
+	Comment string `json:"comment" gorm:"column:comment"`
 
 	// 实现内容
 	Data string `json:"-" gorm:"type:text;column:data"`
 }
 
-type CoreGeneratorParam struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBCoreGeneratorParam struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属生成器id
 	GeneratorId int `json:"generatorId" gorm:"column:generator_id"`
 	// 位置, 1.入参 2.出参

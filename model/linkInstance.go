@@ -1,8 +1,8 @@
 package model
 
 // 链 定义
-type LinkInstance struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBLinkInstance struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属工程ID
 	ProjectInstanceId int `json:"projectInstanceId" gorm:"column:project_instance_id"`
 	// 所用 链 定义 id
@@ -10,18 +10,18 @@ type LinkInstance struct {
 	// 链名称
 	Name string `json:"name" gorm:"column:name"`
 	// 注释
-	Common string `json:"common" gorm:"column:common"`
+	Comment string `json:"comment" gorm:"column:comment"`
 
 	// 是否共享, 不共享的话 只能当前工程可用
 	IsShared bool `json:"isShared" gorm:"column:is_shared"`
 }
 
-func (receiver LinkInstance) TableName() string {
+func (receiver DBLinkInstance) TableName() string {
 	return "link_instance"
 }
 
-type LinkParamInstance struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBLinkParamInstance struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所用 链参数 定义 id
 	DefineId int `json:"defineId" gorm:"column:define_id"`
 	// 所属 链 instance id
@@ -52,6 +52,6 @@ type LinkParamInstance struct {
 	OutputConst []byte `json:"outputConst" gorm:"type:binary;column:output_const"`
 }
 
-func (receiver LinkParamInstance) TableName() string {
+func (receiver DBLinkParamInstance) TableName() string {
 	return "link_param_instance"
 }

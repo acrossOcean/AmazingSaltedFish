@@ -11,8 +11,12 @@ func InitRouter(r *gin.RouterGroup) {
 
 	// 添加框架
 	InitStructRouter(v1Router)
+	InitProjectRouter(v1Router)
+	InitLinkRouter(v1Router)
+	InitNodeRouter(v1Router)
 }
 
+// 结构定义
 func InitStructRouter(router *gin.RouterGroup) {
 	r := router.Group("/struct")
 	{
@@ -22,5 +26,101 @@ func InitStructRouter(router *gin.RouterGroup) {
 
 		r.GET("/detail/:id", controller.GetStruct)
 		r.GET("/list", controller.GetStructList)
+	}
+}
+
+// 项目路由
+func InitProjectRouter(router *gin.RouterGroup) {
+	r := router.Group("/proj")
+	{
+		defineRouter := r.Group("/define")
+		{
+			// 获取项目/列表
+			defineRouter.GET("/detail/:id", controller.GetProjectDefine)
+			defineRouter.GET("/list", controller.GetProjectDefineList)
+			// 新建项目定义
+			defineRouter.POST("/", controller.CreateProjectDefine)
+			// 更新项目定义
+			defineRouter.PUT("/", controller.UpdateProjectDefine)
+			// 删除项目定义 (会同步删除实现信息)
+			defineRouter.DELETE("/", controller.DeleteProjectDefine)
+		}
+
+		instanceRouter := r.Group("/instance")
+		{
+			// 获取项目/列表
+			instanceRouter.GET("/detail/:id", controller.GetProjectInstance)
+			instanceRouter.GET("/list", controller.GetProjectInstanceList)
+			// 新建项目实现
+			instanceRouter.POST("/", controller.CreateProjectInstance)
+			// 更新项目实现
+			instanceRouter.PUT("/", controller.UpdateProjectInstance)
+			// 删除项目实现 (保留项目定义)
+			instanceRouter.DELETE("/", controller.DeleteProjectInstance)
+		}
+	}
+}
+
+// link 路由
+func InitLinkRouter(router *gin.RouterGroup) {
+	r := router.Group("/link")
+	{
+		defineRouter := r.Group("/define")
+		{
+			// 获取项目/列表
+			defineRouter.GET("/detail/:id", controller.GetLinkDefine)
+			defineRouter.GET("/list", controller.GetLinkDefineList)
+			// 新建项目定义
+			defineRouter.POST("/", controller.CreateLinkDefine)
+			// 更新项目定义
+			defineRouter.PUT("/", controller.UpdateLinkDefine)
+			// 删除项目定义 (会同步删除实现信息)
+			defineRouter.DELETE("/", controller.DeleteLinkDefine)
+		}
+
+		instanceRouter := r.Group("/instance")
+		{
+			// 获取项目/列表
+			instanceRouter.GET("/detail/:id", controller.GetLinkInstance)
+			instanceRouter.GET("/list", controller.GetLinkInstanceList)
+			// 新建项目实现
+			instanceRouter.POST("/", controller.CreateLinkInstance)
+			// 更新项目实现
+			instanceRouter.PUT("/", controller.UpdateLinkInstance)
+			// 删除项目实现 (保留项目定义)
+			instanceRouter.DELETE("/", controller.DeleteLinkInstance)
+		}
+	}
+}
+
+// node 路由
+func InitNodeRouter(router *gin.RouterGroup) {
+	r := router.Group("/node")
+	{
+		defineRouter := r.Group("/define")
+		{
+			// 获取项目/列表
+			defineRouter.GET("/detail/:id", controller.GetNodeDefine)
+			defineRouter.GET("/list", controller.GetNodeDefineList)
+			// 新建项目定义
+			defineRouter.POST("/", controller.CreateNodeDefine)
+			// 更新项目定义
+			defineRouter.PUT("/", controller.UpdateNodeDefine)
+			// 删除项目定义 (会同步删除实现信息)
+			defineRouter.DELETE("/", controller.DeleteNodeDefine)
+		}
+
+		instanceRouter := r.Group("/instance")
+		{
+			// 获取项目/列表
+			instanceRouter.GET("/detail/:id", controller.GetNodeInstance)
+			instanceRouter.GET("/list", controller.GetNodeInstanceList)
+			// 新建项目实现
+			instanceRouter.POST("/", controller.CreateNodeInstance)
+			// 更新项目实现
+			instanceRouter.PUT("/", controller.UpdateNodeInstance)
+			// 删除项目实现 (保留项目定义)
+			instanceRouter.DELETE("/", controller.DeleteNodeInstance)
+		}
 	}
 }

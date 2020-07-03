@@ -1,19 +1,19 @@
 package model
 
-type ProjectDefine struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBProjectDefine struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 工程名
 	Name string `json:"name" gorm:"column:name"`
 	// 注释
 	Comment string `json:"comment" gorm:"column:comment"`
 }
 
-func (receiver ProjectDefine) TableName() string {
+func (receiver DBProjectDefine) TableName() string {
 	return "project_define"
 }
 
-type ProjectParamDefine struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBProjectParamDefine struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属项目id
 	ProjectDefineId int `json:"projectDefineId" gorm:"column:project_define_id"`
 	// 位置, 1.入参 2.出参
@@ -30,6 +30,6 @@ type ProjectParamDefine struct {
 	Sort int `json:"sort" gorm:"column:sort"`
 }
 
-func (receiver ProjectParamDefine) TableName() string {
+func (receiver DBProjectParamDefine) TableName() string {
 	return "project_param_define"
 }

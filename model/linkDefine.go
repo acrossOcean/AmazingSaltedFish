@@ -1,25 +1,25 @@
 package model
 
 // 链 定义
-type LinkDefine struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBLinkDefine struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属工程ID
 	ProjectDefineId int `json:"projectDefineId" gorm:"column:project_define_id"`
 	// 链名称
 	Name string `json:"name" gorm:"column:name"`
 	// 注释
-	Common string `json:"common" gorm:"column:common"`
+	Comment string `json:"comment" gorm:"column:comment"`
 
 	// 是否共享, 不共享的话 只能当前工程可用
 	IsShared bool `json:"isShared" gorm:"column:is_shared"`
 }
 
-func (receiver LinkDefine) TableName() string {
+func (receiver DBLinkDefine) TableName() string {
 	return "link_define"
 }
 
-type LinkParamDefine struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBLinkParamDefine struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属 链 id
 	LinkDefineId int `json:"linkDefineId" gorm:"column:link_define_id"`
 	// 位置, 1.入参 2.出参
@@ -47,6 +47,6 @@ type LinkParamDefine struct {
 	ConstData []byte `json:"constData" gorm:"type:binary;column:const_data"`
 }
 
-func (receiver LinkParamDefine) TableName() string {
+func (receiver DBLinkParamDefine) TableName() string {
 	return "link_param_define"
 }

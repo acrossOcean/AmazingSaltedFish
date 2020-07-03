@@ -1,7 +1,7 @@
 package model
 
-type NodeDefine struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBNodeDefine struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属 链 ID
 	BelongLinkDefineId int `json:"belongLinkDefineId" gorm:"column:belong_link_define_id"`
 	// 方法名
@@ -9,20 +9,16 @@ type NodeDefine struct {
 	// 注释
 	Comment string `json:"comment" gorm:"column:comment"`
 
-	// 是否是链, 如果不是链, 那么就是节点, 可以是链, 也可以是节点, 如果是链的话,对应记录下 链的ID, 如果是节点,那么记录节点的生成代码实现方式
-	IsLink bool `json:"isLink" gorm:"column:is_link"`
-	// 如果是链, 那么需要记录 link define 的ID
-	LinkDefineId int `json:"linkDefineId" gorm:"column:link_define_id"`
 	// 前一个NodeID, 第一个写-1
 	PreNodeDefineId int `json:"preNodeDefineId" gorm:"column:pre_node_define_id"`
 }
 
-func (receiver NodeDefine) TableName() string {
+func (receiver DBNodeDefine) TableName() string {
 	return "node_define"
 }
 
-type NodeParamDefine struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBNodeParamDefine struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属节点id
 	NodeDefineId int `json:"nodeDefineId" gorm:"column:node_define_id"`
 	// 位置, 1.入参 2.出参
@@ -46,6 +42,6 @@ type NodeParamDefine struct {
 	MapValueParamId int `json:"mapValueParamId" gorm:"column:map_value_param_id"`
 }
 
-func (receiver NodeParamDefine) TableName() string {
+func (receiver DBNodeParamDefine) TableName() string {
 	return "node_param_define"
 }

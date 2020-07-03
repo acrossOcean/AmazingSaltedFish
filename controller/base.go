@@ -20,5 +20,5 @@ func getPageInfo(ctx *gin.Context) model.PageReq {
 	result.PageSize = size
 	result.PageNum = num
 
-	return result
+	return result.Format()
 }

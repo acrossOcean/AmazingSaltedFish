@@ -1,7 +1,7 @@
 package model
 
-type ProjectInstance struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBProjectInstance struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 对应 定义 id
 	DefineId int `json:"defineId" gorm:"column:define_id"`
 	// 工程名
@@ -16,12 +16,12 @@ type ProjectInstance struct {
 	FirstLinkInstanceId int `json:"firstLinkInstanceId" gorm:"column:first_link_instance_id"`
 }
 
-func (receiver *ProjectInstance) TableName() string {
+func (receiver *DBProjectInstance) TableName() string {
 	return "project_instance"
 }
 
-type ProjectParamInstance struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBProjectParamInstance struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属节点id
 	ProjectInstanceId int `json:"projectInstanceId" gorm:"column:project_instance_id"`
 	// 位置, 1.入参 2.出参
@@ -50,6 +50,6 @@ type ProjectParamInstance struct {
 	OutputConst []byte `json:"outputConst" gorm:"type:binary;column:output_const"`
 }
 
-func (receiver ProjectParamInstance) TableName() string {
+func (receiver DBProjectParamInstance) TableName() string {
 	return "project_param_instance"
 }

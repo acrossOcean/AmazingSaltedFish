@@ -61,6 +61,24 @@ func NewStrCheckOption(op StrOperator, intTarget int, strTarget string) StrCheck
 	return result
 }
 
+func NewStrCheckOptionInt(op StrOperator, intTarget int) StrCheckOption {
+	var result = StrCheckOption{
+		operator:  op,
+		intTarget: intTarget,
+	}
+
+	return result
+}
+
+func NewStrCheckOptionStr(op StrOperator, strTarget string) StrCheckOption {
+	var result = StrCheckOption{
+		operator:     op,
+		stringTarget: strTarget,
+	}
+
+	return result
+}
+
 func NewStrCheckOptionIN(strTargets []string) StrCheckOption {
 	var result = StrCheckOption{
 		operator:    StrOperatorStrIN,

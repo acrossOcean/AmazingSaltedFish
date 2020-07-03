@@ -12,14 +12,14 @@ import (
 )
 
 // @Summary 获取一个结构信息
-// @Tags 结构体信息,获取
+// @Tags node实体信息,获取,实体
 // @Accept json
 // @Produce json
 // @Param id path int true "ID" minimum(1)
-// @Success 200 {object} model.GetStructResp
+// @Success 200 {object} model.GetNodeInstanceResp
 // @Failure 400 {object} model.BaseResp
-// @Router /struct/detail/{id} [get]
-func GetStruct(ctx *gin.Context) {
+// @Router /node/instance/detail/{id} [get]
+func GetNodeInstance(ctx *gin.Context) {
 	idStr := ctx.Param("id")
 	id, _ := strconv.Atoi(idStr)
 
@@ -30,7 +30,7 @@ func GetStruct(ctx *gin.Context) {
 		return
 	}
 
-	info, err := service.GetStruct(id)
+	info, err := service.GetNodeInstance(id)
 	if err != nil {
 		respError(ctx, err)
 		return
@@ -40,15 +40,15 @@ func GetStruct(ctx *gin.Context) {
 }
 
 // @Summary 获取结构信息列表
-// @Tags 结构体信息,获取,列表
+// @Tags node实体信息,获取,列表,实体
 // @Accept json
 // @Produce json
 // @Param pageNum query int true "分页信息, 页数从1开始"
 // @Param pageSize query int true "分页信息, 每页最大500"
-// @Success 200 {object} model.GetStructListResp
+// @Success 200 {object} model.GetNodeInstanceListResp
 // @Failure 400 {object} model.BaseResp
-// @Router /struct/list [get]
-func GetStructList(ctx *gin.Context) {
+// @Router /node/instance/list [get]
+func GetNodeInstanceList(ctx *gin.Context) {
 	reqInfo := getPageInfo(ctx)
 
 	if reqInfo.PageNum < 1 {
@@ -59,7 +59,7 @@ func GetStructList(ctx *gin.Context) {
 		reqInfo.PageSize = 20
 	}
 
-	info, err := service.GetStructList(reqInfo)
+	info, err := service.GetNodeInstanceList(reqInfo)
 	if err != nil {
 		respError(ctx, err)
 		return
@@ -69,15 +69,15 @@ func GetStructList(ctx *gin.Context) {
 }
 
 // @Summary 新建一个结构信息
-// @Tags 结构体信息,新建
+// @Tags node实体信息,新建,实体
 // @Accept json
 // @Produce json
-// @Param structInfo body model.CreateStructReq true "结构体信息"
-// @Success 200 {object} model.CreateStructResp
+// @Param projectInfo body model.CreateNodeInstanceReq true "结构体信息"
+// @Success 200 {object} model.CreateNodeInstanceResp
 // @Failure 400 {object} model.BaseResp
-// @Router /struct/ [post]
-func CreateStruct(ctx *gin.Context) {
-	var reqInfo model.CreateStructReq
+// @Router /node/instance/ [post]
+func CreateNodeInstance(ctx *gin.Context) {
+	var reqInfo model.CreateNodeInstanceReq
 	if err := ctx.ShouldBind(&reqInfo); err != nil {
 		log.Debug("接收参数错误:%s", err.Error())
 		respParamError(ctx, reqInfo)
@@ -91,20 +91,20 @@ func CreateStruct(ctx *gin.Context) {
 		return
 	}
 
-	for _, f := range reqInfo.Fields {
+	for _, p := range reqInfo.ParamList {
 		if !check.PassCheck(
-			check.NewIntChecker(f.Type.ToInt(),
+			check.NewIntChecker(p.PType.ToInt(),
 				check.NewIntCheckOptionIN(model.GetAllFieldTypeInt()),
 			),
-			check.NewStrChecker(f.Name, check.NewStrCheckOption(check.StrOperatorLenLE, 20, "")),
-			check.NewStrChecker(f.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
+			check.NewStrChecker(p.Name, check.NewStrCheckOption(check.StrOperatorLenLE, 20, "")),
+			check.NewStrChecker(p.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
 		) {
 			respParamError(ctx, reqInfo)
 			return
 		}
 	}
 
-	info, err := service.CreateStruct(reqInfo)
+	info, err := service.CreateNodeInstance(reqInfo)
 	if err != nil {
 		respError(ctx, err)
 		return
@@ -114,15 +114,15 @@ func CreateStruct(ctx *gin.Context) {
 }
 
 // @Summary 更新一个结构信息
-// @Tags 结构体信息,更新
+// @Tags node实体信息,更新,实体
 // @Accept json
 // @Produce json
-// @Param structInfo body model.UpdateStructReq true "结构体信息"
-// @Success 200 {object} model.UpdateStructResp
+// @Param projectInfo body model.UpdateNodeInstanceReq true "结构体信息"
+// @Success 200 {object} model.UpdateNodeInstanceResp
 // @Failure 400 {object} model.BaseResp
-// @Router /struct/ [put]
-func UpdateStruct(ctx *gin.Context) {
-	var reqInfo model.UpdateStructReq
+// @Router /node/instance/ [put]
+func UpdateNodeInstance(ctx *gin.Context) {
+	var reqInfo model.UpdateNodeInstanceReq
 	if err := ctx.ShouldBind(&reqInfo); err != nil {
 		log.Debug("接收参数错误:%s", err.Error())
 		respParamError(ctx, reqInfo)
@@ -137,20 +137,20 @@ func UpdateStruct(ctx *gin.Context) {
 		return
 	}
 
-	for _, f := range reqInfo.Fields {
+	for _, p := range reqInfo.ParamList {
 		if !check.PassCheck(
-			check.NewIntChecker(f.FType.ToInt(),
+			check.NewIntChecker(p.PType.ToInt(),
 				check.NewIntCheckOptionIN(model.GetAllFieldTypeInt()),
 			),
-			check.NewStrChecker(f.Name, check.NewStrCheckOption(check.StrOperatorLenLE, 20, "")),
-			check.NewStrChecker(f.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
+			check.NewStrChecker(p.Name, check.NewStrCheckOption(check.StrOperatorLenLE, 20, "")),
+			check.NewStrChecker(p.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
 		) {
 			respParamError(ctx, reqInfo)
 			return
 		}
 	}
 
-	info, err := service.UpdateStruct(reqInfo)
+	info, err := service.UpdateNodeInstance(reqInfo)
 	if err != nil {
 		respError(ctx, err)
 		return
@@ -160,14 +160,14 @@ func UpdateStruct(ctx *gin.Context) {
 }
 
 // @Summary 删除一个结构信息
-// @Tags 结构体信息,删除
+// @Tags node实体信息,删除,实体
 // @Accept json
 // @Produce json
-// @Param id path int true "struct的ID" minimum(1)
-// @Success 200 {object} model.DeleteStructResp
+// @Param id path int true "project的ID" minimum(1)
+// @Success 200 {object} model.DeleteNodeInstanceResp
 // @Failure 400 {object} model.BaseResp
-// @Router /struct/{id} [delete]
-func DeleteStruct(ctx *gin.Context) {
+// @Router /node/instance/{id} [delete]
+func DeleteNodeInstance(ctx *gin.Context) {
 	idStr := ctx.Param("id")
 	id, _ := strconv.Atoi(idStr)
 
@@ -178,7 +178,7 @@ func DeleteStruct(ctx *gin.Context) {
 		return
 	}
 
-	info, err := service.DeleteStruct(id)
+	info, err := service.DeleteNodeInstance(id)
 	if err != nil {
 		respError(ctx, err)
 		return

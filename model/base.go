@@ -12,7 +12,7 @@ const (
 var (
 	RespSuccess = BaseResp{
 		Code: CodeSuccess,
-		Msg:  "",
+		Msg:  "success",
 	}
 
 	RespParamError = BaseResp{
@@ -28,6 +28,19 @@ type PageReq struct {
 	PageSize int `json:"pageSize"`
 }
 
+func (receiver PageReq) Format() PageReq {
+	var result = receiver
+	if result.PageNum < 1 {
+		result.PageNum = 1
+	}
+
+	if result.PageSize < 0 || result.PageSize > 500 {
+		result.PageSize = 20
+	}
+
+	return result
+}
+
 type BaseResp struct {
 	// 结果码
 	Code ReturnCode
@@ -36,8 +49,8 @@ type BaseResp struct {
 }
 
 func (receiver *BaseResp) SetSuccess() {
-	receiver.Code = CodeSuccess
-	receiver.Msg = "success"
+	receiver.Code = RespSuccess.Code
+	receiver.Msg = RespSuccess.Msg
 }
 
 func (receiver *BaseResp) SetError(err error) {

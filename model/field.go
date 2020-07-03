@@ -1,8 +1,8 @@
 package model
 
-type Field struct {
+type DBField struct {
 	// 字段ID
-	Id int `json:"fieldId" gorm:"column:id"`
+	Id int `json:"fieldId" gorm:"column:id;primary_key"`
 	// 对应 父级 ID (可能还是字段, 也可能是结构体)
 	ParentId int `json:"parentId" gorm:"column:parent_id"`
 	// 字段类型
@@ -28,11 +28,11 @@ type Field struct {
 	ConstData []byte `json:"constData" gorm:"type:binary;column:const_data"`
 }
 
-func (receiver Field) TableName() string {
+func (receiver DBField) TableName() string {
 	return "field_info"
 }
 
-type FieldList []Field
+type FieldList []DBField
 
 func (receiver FieldList) Len() int { return len(receiver) }
 
@@ -47,36 +47,6 @@ func (receiver FieldList) Less(i, j int) bool {
 }
 
 func (receiver FieldList) Swap(i, j int) { receiver[i], receiver[j] = receiver[j], receiver[i] }
-
-type CreateFieldInfo struct {
-	// 字段类型
-	Type FieldType `json:"type" swaggertype:"integer"`
-	// 字段名
-	Name string `json:"name"`
-	// 字段注释
-	Comment string `json:"comment"`
-	// 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
-	StructId int `json:"structId"`
-	// 是否为 列表
-	IsList bool `json:"isList"`
-	// 排序位置
-	Sort int `json:"sort"`
-}
-
-func (receiver CreateFieldInfo) ToNormal() Field {
-	var result = Field{
-		Id:       0,
-		ParentId: 0,
-		FType:    receiver.Type,
-		Name:     receiver.Name,
-		Comment:  receiver.Comment,
-		StructId: receiver.StructId,
-		IsList:   receiver.IsList,
-		Sort:     receiver.Sort,
-	}
-
-	return result
-}
 
 type FieldType int
 

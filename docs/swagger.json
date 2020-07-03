@@ -16,6 +16,1236 @@
         "version": "0.0.1"
     },
     "paths": {
+        "/link/define/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link定义信息",
+                    "更新",
+                    "定义"
+                ],
+                "summary": "更新一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateLinkDefineReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateLinkDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link定义信息",
+                    "新建",
+                    "定义"
+                ],
+                "summary": "新建一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateLinkDefineReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateLinkDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/define/detail/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link定义信息",
+                    "获取",
+                    "定义"
+                ],
+                "summary": "获取一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetLinkDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/define/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link定义信息",
+                    "获取",
+                    "列表",
+                    "定义"
+                ],
+                "summary": "获取结构信息列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 页数从1开始",
+                        "name": "pageNum",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 每页最大500",
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetLinkDefineListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/define/{id}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link定义信息",
+                    "删除",
+                    "定义"
+                ],
+                "summary": "删除一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "project的ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.DeleteLinkDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/instance/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link实体信息",
+                    "更新",
+                    "实体"
+                ],
+                "summary": "更新一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateLinkInstanceReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateLinkInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link实体信息",
+                    "新建",
+                    "实体"
+                ],
+                "summary": "新建一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateLinkInstanceReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateLinkInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/instance/detail/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link实体信息",
+                    "获取",
+                    "实体"
+                ],
+                "summary": "获取一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetLinkInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/instance/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link实体信息",
+                    "获取",
+                    "列表",
+                    "实体"
+                ],
+                "summary": "获取结构信息列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 页数从1开始",
+                        "name": "pageNum",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 每页最大500",
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetLinkInstanceListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/instance/{id}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link实体信息",
+                    "删除",
+                    "实体"
+                ],
+                "summary": "删除一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "project的ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.DeleteLinkInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/node/define/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node定义信息",
+                    "更新",
+                    "定义"
+                ],
+                "summary": "更新一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateNodeDefineReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateNodeDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node定义信息",
+                    "新建",
+                    "定义"
+                ],
+                "summary": "新建一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateNodeDefineReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateNodeDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/node/define/detail/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node定义信息",
+                    "获取",
+                    "定义"
+                ],
+                "summary": "获取一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetNodeDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/node/define/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node定义信息",
+                    "获取",
+                    "列表",
+                    "定义"
+                ],
+                "summary": "获取结构信息列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 页数从1开始",
+                        "name": "pageNum",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 每页最大500",
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetNodeDefineListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/node/define/{id}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node定义信息",
+                    "删除",
+                    "定义"
+                ],
+                "summary": "删除一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "project的ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.DeleteNodeDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/node/instance/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node实体信息",
+                    "更新",
+                    "实体"
+                ],
+                "summary": "更新一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateNodeInstanceReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateNodeInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node实体信息",
+                    "新建",
+                    "实体"
+                ],
+                "summary": "新建一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateNodeInstanceReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateNodeInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/node/instance/detail/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node实体信息",
+                    "获取",
+                    "实体"
+                ],
+                "summary": "获取一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetNodeInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/node/instance/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node实体信息",
+                    "获取",
+                    "列表",
+                    "实体"
+                ],
+                "summary": "获取结构信息列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 页数从1开始",
+                        "name": "pageNum",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 每页最大500",
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetNodeInstanceListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/node/instance/{id}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "node实体信息",
+                    "删除",
+                    "实体"
+                ],
+                "summary": "删除一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "project的ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.DeleteNodeInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/define/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project定义信息",
+                    "更新",
+                    "定义"
+                ],
+                "summary": "更新一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateProjectDefineReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateProjectDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project定义信息",
+                    "新建",
+                    "定义"
+                ],
+                "summary": "新建一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateProjectDefineReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateProjectDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/define/detail/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project定义信息",
+                    "获取",
+                    "定义"
+                ],
+                "summary": "获取一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetProjectDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/define/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project定义信息",
+                    "获取",
+                    "列表",
+                    "定义"
+                ],
+                "summary": "获取结构信息列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 页数从1开始",
+                        "name": "pageNum",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 每页最大500",
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetProjectDefineListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/define/{id}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project定义信息",
+                    "删除",
+                    "定义"
+                ],
+                "summary": "删除一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "project的ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.DeleteProjectDefineResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/instance/": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project实体信息",
+                    "更新",
+                    "实体"
+                ],
+                "summary": "更新一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateProjectInstanceReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateProjectInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project实体信息",
+                    "新建",
+                    "实体"
+                ],
+                "summary": "新建一个结构信息",
+                "parameters": [
+                    {
+                        "description": "结构体信息",
+                        "name": "projectInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateProjectInstanceReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateProjectInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/instance/detail/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project实体信息",
+                    "获取",
+                    "实体"
+                ],
+                "summary": "获取一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetProjectInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/instance/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project实体信息",
+                    "获取",
+                    "列表",
+                    "实体"
+                ],
+                "summary": "获取结构信息列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 页数从1开始",
+                        "name": "pageNum",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "分页信息, 每页最大500",
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GetProjectInstanceListResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/instance/{id}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project实体信息",
+                    "删除",
+                    "实体"
+                ],
+                "summary": "删除一个结构信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "project的ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.DeleteProjectInstanceResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.BaseResp"
+                        }
+                    }
+                }
+            }
+        },
         "/struct/": {
             "put": {
                 "consumes": [
@@ -110,7 +1340,7 @@
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "struct的ID",
+                        "description": "ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -234,29 +1464,304 @@
         "model.CreateFieldInfo": {
             "type": "object",
             "properties": {
-                "fieldComment": {
+                "comment": {
                     "description": "字段注释",
                     "type": "string"
                 },
-                "fieldIsList": {
+                "isList": {
                     "description": "是否为 列表",
                     "type": "boolean"
                 },
-                "fieldName": {
+                "name": {
                     "description": "字段名",
                     "type": "string"
                 },
-                "fieldSort": {
+                "sort": {
                     "description": "排序位置",
                     "type": "integer"
                 },
-                "fieldStructId": {
+                "structId": {
                     "description": "对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用",
                     "type": "integer"
                 },
-                "fieldType": {
+                "type": {
                     "description": "字段类型",
                     "type": "integer"
+                }
+            }
+        },
+        "model.CreateLinkDefineReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "项目名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "description": "参数列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LinkParamDefine"
+                    }
+                }
+            }
+        },
+        "model.CreateLinkDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "创建成功后的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateLinkInstanceReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "对应 定义 id",
+                    "type": "integer"
+                },
+                "firstLinkDefineId": {
+                    "description": "第一个 link 信息",
+                    "type": "integer"
+                },
+                "firstLinkInstanceId": {
+                    "type": "integer"
+                },
+                "generateLanguage": {
+                    "description": "实现工程所用语言及版本",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "工程名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "description": "参数信息",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LinkParamInstance"
+                    }
+                }
+            }
+        },
+        "model.CreateLinkInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "创建成功后的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateNodeDefineReq": {
+            "type": "object",
+            "properties": {
+                "belongLinkDefineId": {
+                    "description": "所属link id",
+                    "type": "integer"
+                },
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "node名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "description": "参数列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.NodeParamDefine"
+                    }
+                },
+                "preNodeDefineId": {
+                    "description": "前一个nodeID , 第一个写-1",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.CreateNodeDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "创建成功后的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateNodeInstanceReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "对应 定义 id",
+                    "type": "integer"
+                },
+                "firstLinkDefineId": {
+                    "description": "第一个 link 信息",
+                    "type": "integer"
+                },
+                "firstLinkInstanceId": {
+                    "type": "integer"
+                },
+                "generateLanguage": {
+                    "description": "实现工程所用语言及版本",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "工程名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "description": "参数信息",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.NodeParamInstance"
+                    }
+                }
+            }
+        },
+        "model.CreateNodeInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "创建成功后的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateProjectDefineReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "项目名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "description": "参数列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ProjectParamDefine"
+                    }
+                }
+            }
+        },
+        "model.CreateProjectDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "创建成功后的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateProjectInstanceReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "对应 定义 id",
+                    "type": "integer"
+                },
+                "firstLinkDefineId": {
+                    "description": "第一个 link 信息",
+                    "type": "integer"
+                },
+                "firstLinkInstanceId": {
+                    "type": "integer"
+                },
+                "generateLanguage": {
+                    "description": "实现工程所用语言及版本",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "工程名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "description": "参数信息",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ProjectParamInstance"
+                    }
+                }
+            }
+        },
+        "model.CreateProjectInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "创建成功后的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
                 }
             }
         },
@@ -293,6 +1798,182 @@
                 }
             }
         },
+        "model.DBField": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "constData": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "fieldId": {
+                    "description": "字段ID",
+                    "type": "integer"
+                },
+                "fieldType": {
+                    "description": "字段类型",
+                    "type": "integer"
+                },
+                "isConst": {
+                    "description": "如果是固定值, 那么记录",
+                    "type": "boolean"
+                },
+                "isList": {
+                    "description": "是否为 列表",
+                    "type": "boolean"
+                },
+                "mapKeyFieldId": {
+                    "description": "当fieldType 为 map 时",
+                    "type": "integer"
+                },
+                "mapValueFieldId": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "字段名",
+                    "type": "string"
+                },
+                "parentId": {
+                    "description": "对应 父级 ID (可能还是字段, 也可能是结构体)",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序位置",
+                    "type": "integer"
+                },
+                "structId": {
+                    "description": "对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.DBStructInfo": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "备注信息",
+                    "type": "string"
+                },
+                "fieldList": {
+                    "description": "字段",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.DBField"
+                    }
+                },
+                "id": {
+                    "description": "结构体ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.DeleteLinkDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "删除的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.DeleteLinkInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "删除的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.DeleteNodeDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "删除的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.DeleteNodeInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "删除的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.DeleteProjectDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "删除的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.DeleteProjectInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "删除的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
         "model.DeleteStructResp": {
             "type": "object",
             "properties": {
@@ -310,40 +1991,255 @@
                 }
             }
         },
-        "model.Field": {
+        "model.GetLinkDefineListResp": {
             "type": "object",
             "properties": {
-                "fieldComment": {
-                    "description": "字段注释",
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "list": {
+                    "description": "项目列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LinkDefineInfo"
+                    }
+                },
+                "msg": {
+                    "description": "提示信息",
                     "type": "string"
                 },
-                "fieldId": {
-                    "description": "字段ID",
+                "sum": {
+                    "description": "总数据条数",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.GetLinkDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
                     "type": "integer"
                 },
-                "fieldIsList": {
-                    "description": "是否为 列表",
-                    "type": "boolean"
+                "info": {
+                    "description": "结构体信息",
+                    "type": "object",
+                    "$ref": "#/definitions/model.LinkDefineInfo"
                 },
-                "fieldName": {
-                    "description": "字段名",
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.GetLinkInstanceListResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "list": {
+                    "description": "项目列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LinkInstanceInfo"
+                    }
+                },
+                "msg": {
+                    "description": "提示信息",
                     "type": "string"
                 },
-                "fieldSort": {
-                    "description": "排序位置",
+                "sum": {
+                    "description": "总数据条数",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.GetLinkInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
                     "type": "integer"
                 },
-                "fieldStructId": {
-                    "description": "对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用",
+                "info": {
+                    "description": "结构体信息",
+                    "type": "object",
+                    "$ref": "#/definitions/model.LinkInstanceInfo"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.GetNodeDefineListResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
                     "type": "integer"
                 },
-                "fieldType": {
-                    "description": "字段类型",
+                "list": {
+                    "description": "node列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.NodeDefineInfo"
+                    }
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                },
+                "sum": {
+                    "description": "总数据条数",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.GetNodeDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
                     "type": "integer"
                 },
-                "parentId": {
-                    "description": "对应结构体ID",
+                "info": {
+                    "description": "node信息",
+                    "type": "object",
+                    "$ref": "#/definitions/model.NodeDefineInfo"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.GetNodeInstanceListResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
                     "type": "integer"
+                },
+                "list": {
+                    "description": "项目列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.NodeInstanceInfo"
+                    }
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                },
+                "sum": {
+                    "description": "总数据条数",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.GetNodeInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "info": {
+                    "description": "结构体信息",
+                    "type": "object",
+                    "$ref": "#/definitions/model.NodeInstanceInfo"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.GetProjectDefineListResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "list": {
+                    "description": "项目列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ProjectDefineInfo"
+                    }
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                },
+                "sum": {
+                    "description": "总数据条数",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.GetProjectDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "info": {
+                    "description": "结构体信息",
+                    "type": "object",
+                    "$ref": "#/definitions/model.ProjectDefineInfo"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.GetProjectInstanceListResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "list": {
+                    "description": "项目列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ProjectInstanceInfo"
+                    }
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                },
+                "sum": {
+                    "description": "总数据条数",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.GetProjectInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "info": {
+                    "description": "结构体信息",
+                    "type": "object",
+                    "$ref": "#/definitions/model.ProjectInstanceInfo"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
                 }
             }
         },
@@ -358,12 +2254,16 @@
                     "description": "结构体列表",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.StructInfo"
+                        "$ref": "#/definitions/model.DBStructInfo"
                     }
                 },
                 "msg": {
                     "description": "提示信息",
                     "type": "string"
+                },
+                "sum": {
+                    "description": "总数据条数",
+                    "type": "integer"
                 }
             }
         },
@@ -377,7 +2277,7 @@
                 "info": {
                     "description": "结构体信息",
                     "type": "object",
-                    "$ref": "#/definitions/model.StructInfo"
+                    "$ref": "#/definitions/model.DBStructInfo"
                 },
                 "msg": {
                     "description": "提示信息",
@@ -385,23 +2285,872 @@
                 }
             }
         },
-        "model.StructInfo": {
+        "model.LinkDefineInfo": {
             "type": "object",
             "properties": {
                 "comment": {
-                    "description": "备注信息",
+                    "description": "注释",
                     "type": "string"
                 },
-                "fieldList": {
-                    "description": "字段",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/model.Field"
-                    }
+                "hasInstance": {
+                    "type": "boolean"
                 },
                 "id": {
-                    "description": "结构体ID",
                     "type": "integer"
+                },
+                "isShared": {
+                    "description": "是否共享, 不共享的话 只能当前工程可用",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "链名称",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LinkParamDefine"
+                    }
+                },
+                "projectDefineId": {
+                    "description": "所属工程ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.LinkInstanceInfo": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "所用 链 定义 id",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isShared": {
+                    "description": "是否共享, 不共享的话 只能当前工程可用",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "链名称",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LinkParamInstance"
+                    }
+                },
+                "projectInstanceId": {
+                    "description": "所属工程ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.LinkParamDefine": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "constData": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "hasInstance": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isConst": {
+                    "description": "如果是固定值, 那么记录",
+                    "type": "boolean"
+                },
+                "isList": {
+                    "description": "是否为 列表",
+                    "type": "boolean"
+                },
+                "isParam": {
+                    "description": "位置, 1.入参 2.出参",
+                    "type": "integer"
+                },
+                "linkDefineId": {
+                    "description": "所属 链 id",
+                    "type": "integer"
+                },
+                "mapKeyParamId": {
+                    "description": "当ParamType 为 map 时",
+                    "type": "integer"
+                },
+                "mapValueParamId": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "字段名",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序位置",
+                    "type": "integer"
+                },
+                "structId": {
+                    "description": "对应结构体ID, 当 FType 为 ParamTypeStruct 时 有用",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "字段类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.LinkParamInstance": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "所用 链参数 定义 id",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "inputConst": {
+                    "description": "如果是来自确定值, 那么记录这个值",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "inputType": {
+                    "description": "入参来源",
+                    "type": "integer"
+                },
+                "inputVarDefineId": {
+                    "description": "如果来自变量, 那么记录来源",
+                    "type": "integer"
+                },
+                "inputVarInstanceId": {
+                    "description": "如果来自变量, 那么记录来源",
+                    "type": "integer"
+                },
+                "inputVarIsLink": {
+                    "description": "如果来自变量, 那么记录是来自 其它链还是其它Node",
+                    "type": "boolean"
+                },
+                "isParam": {
+                    "description": "位置, 1.入参 2.出参",
+                    "type": "integer"
+                },
+                "linkInstanceId": {
+                    "description": "所属 链 instance id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "字段名",
+                    "type": "string"
+                },
+                "outputConst": {
+                    "description": "如果是确定值, 那么记录这个值",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "outputType": {
+                    "description": "返回值类型 (如果返回变量, 那么不需要记录, 到时候直接用就可以)",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "字段类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.NodeDefineInfo": {
+            "type": "object",
+            "properties": {
+                "belongLinkDefineId": {
+                    "description": "所属 链 ID",
+                    "type": "integer"
+                },
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "hasInstance": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "方法名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.NodeParamDefine"
+                    }
+                },
+                "preNodeDefineId": {
+                    "description": "前一个NodeID, 第一个写-1",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.NodeInstanceInfo": {
+            "type": "object",
+            "properties": {
+                "belongLinkInstanceId": {
+                    "description": "所属 链 ID",
+                    "type": "integer"
+                },
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "所用 node define id",
+                    "type": "integer"
+                },
+                "generatorId": {
+                    "description": "实现方式ID, 对应 \"core_generator\" id",
+                    "type": "integer"
+                },
+                "generatorName": {
+                    "description": "实现方式名称",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isLink": {
+                    "description": "是否是链, 如果不是链, 那么就是节点, 可以是链, 也可以是节点, 如果是链的话,对应记录下 链的ID, 如果是节点,那么记录节点的生成代码实现方式",
+                    "type": "boolean"
+                },
+                "linkInstanceId": {
+                    "description": "如果是链, 那么需要记录 link instance 的ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "方法名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.NodeParamInstance"
+                    }
+                },
+                "preNodeInstanceId": {
+                    "description": "前一个NodeID, 第一个写-1",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.NodeParamDefine": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "hasInstance": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isList": {
+                    "description": "是否为 列表",
+                    "type": "boolean"
+                },
+                "isParam": {
+                    "description": "位置, 1.入参 2.出参",
+                    "type": "integer"
+                },
+                "mapKeyParamId": {
+                    "description": "当ParamType 为 map 时",
+                    "type": "integer"
+                },
+                "mapValueParamId": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "字段名",
+                    "type": "string"
+                },
+                "nodeDefineId": {
+                    "description": "所属节点id",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序位置",
+                    "type": "integer"
+                },
+                "structId": {
+                    "description": "对应结构体ID, 当 FType 为 ParamTypeStruct 时 有用",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "字段类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.NodeParamInstance": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "对应定义ID",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "inputConst": {
+                    "description": "如果是来自确定值, 那么记录这个值",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "inputType": {
+                    "description": "入参来源",
+                    "type": "integer"
+                },
+                "inputVarDefineId": {
+                    "description": "如果来自变量, 那么记录来源",
+                    "type": "integer"
+                },
+                "inputVarInstanceId": {
+                    "description": "如果来自变量, 那么记录来源",
+                    "type": "integer"
+                },
+                "inputVarIsLink": {
+                    "description": "如果来自变量, 那么记录是来自 其它link还是其它Node",
+                    "type": "boolean"
+                },
+                "isParam": {
+                    "description": "位置, 1.入参 2.出参",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "字段名",
+                    "type": "string"
+                },
+                "nodeInstanceId": {
+                    "description": "所属节点id",
+                    "type": "integer"
+                },
+                "outputConst": {
+                    "description": "如果是确定值, 那么记录这个值",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "outputType": {
+                    "description": "返回值类型 (如果返回变量, 那么不需要记录, 到时候直接用就可以)",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "字段类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.ProjectDefineInfo": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "hasInstance": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "工程名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ProjectParamDefine"
+                    }
+                }
+            }
+        },
+        "model.ProjectInstanceInfo": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "对应 定义 id",
+                    "type": "integer"
+                },
+                "firstLinkDefineId": {
+                    "description": "第一个 link 信息",
+                    "type": "integer"
+                },
+                "firstLinkInstanceId": {
+                    "type": "integer"
+                },
+                "generateLanguage": {
+                    "description": "实现工程所用语言及版本",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "工程名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ProjectParamInstance"
+                    }
+                }
+            }
+        },
+        "model.ProjectParamDefine": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "hasInstance": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isList": {
+                    "description": "是否为 列表",
+                    "type": "boolean"
+                },
+                "isParam": {
+                    "description": "位置, 1.入参 2.出参",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "字段名",
+                    "type": "string"
+                },
+                "projectDefineId": {
+                    "description": "所属项目id",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序位置",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "字段类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.ProjectParamInstance": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "字段注释",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "inputConst": {
+                    "description": "如果是来自确定值, 那么记录这个值",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "inputType": {
+                    "description": "入参来源",
+                    "type": "integer"
+                },
+                "inputVarDefineId": {
+                    "description": "如果来自变量, 那么记录来源",
+                    "type": "integer"
+                },
+                "inputVarInstanceId": {
+                    "description": "如果来自变量, 那么记录来源",
+                    "type": "integer"
+                },
+                "inputVarIsLink": {
+                    "description": "如果来自变量, 那么记录是来自 其它link还是其它Node",
+                    "type": "boolean"
+                },
+                "isParam": {
+                    "description": "位置, 1.入参 2.出参",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "字段名",
+                    "type": "string"
+                },
+                "outputConst": {
+                    "description": "如果是确定值, 那么记录这个值",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "outputType": {
+                    "description": "返回值类型 (如果返回变量, 那么不需要记录, 到时候直接用就可以)",
+                    "type": "integer"
+                },
+                "projectInstanceId": {
+                    "description": "所属节点id",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "字段类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateLinkDefineReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "hasInstance": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isShared": {
+                    "description": "是否共享, 不共享的话 只能当前工程可用",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "链名称",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LinkParamDefine"
+                    }
+                },
+                "projectDefineId": {
+                    "description": "所属工程ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateLinkDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "更新的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateLinkInstanceReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "所用 链 定义 id",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isShared": {
+                    "description": "是否共享, 不共享的话 只能当前工程可用",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "链名称",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LinkParamInstance"
+                    }
+                },
+                "projectInstanceId": {
+                    "description": "所属工程ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateLinkInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "更新的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateNodeDefineReq": {
+            "type": "object",
+            "properties": {
+                "belongLinkDefineId": {
+                    "description": "所属 链 ID",
+                    "type": "integer"
+                },
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "hasInstance": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "方法名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.NodeParamDefine"
+                    }
+                },
+                "preNodeDefineId": {
+                    "description": "前一个NodeID, 第一个写-1",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateNodeDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "更新的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateNodeInstanceReq": {
+            "type": "object",
+            "properties": {
+                "belongLinkInstanceId": {
+                    "description": "所属 链 ID",
+                    "type": "integer"
+                },
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "所用 node define id",
+                    "type": "integer"
+                },
+                "generatorId": {
+                    "description": "实现方式ID, 对应 \"core_generator\" id",
+                    "type": "integer"
+                },
+                "generatorName": {
+                    "description": "实现方式名称",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isLink": {
+                    "description": "是否是链, 如果不是链, 那么就是节点, 可以是链, 也可以是节点, 如果是链的话,对应记录下 链的ID, 如果是节点,那么记录节点的生成代码实现方式",
+                    "type": "boolean"
+                },
+                "linkInstanceId": {
+                    "description": "如果是链, 那么需要记录 link instance 的ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "方法名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.NodeParamInstance"
+                    }
+                },
+                "preNodeInstanceId": {
+                    "description": "前一个NodeID, 第一个写-1",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateNodeInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "更新的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateProjectDefineReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "hasInstance": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "工程名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ProjectParamDefine"
+                    }
+                }
+            }
+        },
+        "model.UpdateProjectDefineResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "更新的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateProjectInstanceReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "注释",
+                    "type": "string"
+                },
+                "defineId": {
+                    "description": "对应 定义 id",
+                    "type": "integer"
+                },
+                "firstLinkDefineId": {
+                    "description": "第一个 link 信息",
+                    "type": "integer"
+                },
+                "firstLinkInstanceId": {
+                    "type": "integer"
+                },
+                "generateLanguage": {
+                    "description": "实现工程所用语言及版本",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "工程名",
+                    "type": "string"
+                },
+                "paramList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ProjectParamInstance"
+                    }
+                }
+            }
+        },
+        "model.UpdateProjectInstanceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "结果码",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "更新的ID",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "提示信息",
+                    "type": "string"
                 }
             }
         },
@@ -416,7 +3165,7 @@
                     "description": "字段",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Field"
+                        "$ref": "#/definitions/model.DBField"
                     }
                 },
                 "id": {

@@ -12,9 +12,9 @@ import (
 // 获取结构体详情
 func GetStruct(id int) (model.GetStructResp, error) {
 	var result model.GetStructResp
-	var info model.StructInfo
+	var info model.DBStructInfo
 
-	err := _DB.Where("id = ?", id).First(&info).Error
+	err := GetDB().Where("id = ?", id).First(&info).Error
 	if err != nil && err == gorm.ErrRecordNotFound {
 		log.Error("根据 id 获取 结构体 信息错误:%s", err.Error())
 		return result, model.ReturnWithCode(model.CodeResourceNotExist, err)
@@ -23,8 +23,8 @@ func GetStruct(id int) (model.GetStructResp, error) {
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
 	}
 
-	fields := make([]model.Field, 0)
-	err = _DB.Where("parent_id = ?", info.Id).Find(&fields).Error
+	fields := make([]model.DBField, 0)
+	err = GetDB().Where("parent_id = ?", info.Id).Find(&fields).Error
 	if err != nil {
 		log.Error("根据 结构体ID(%v) 获取 对应字段信息 错误:%s", info.Id, err.Error())
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
@@ -38,12 +38,66 @@ func GetStruct(id int) (model.GetStructResp, error) {
 	return result, nil
 }
 
+// 获取结构体列表
+func GetStructList(req model.PageReq) (model.GetStructListResp, error) {
+	var result model.GetStructListResp
+	var infos []model.DBStructInfo
+	var count int
+
+	if err := GetDB().Table(model.DBStructInfo{}.TableName()).Count(&count).Error; err != nil {
+		log.Error("获取 结构体表 数据总数错误:%s", err.Error())
+		return result, model.ReturnWithCode(model.CodeUnknownError, err)
+	}
+
+	if err := GetDB().Order("id DESC").Limit(req.PageSize).Offset((req.PageNum - 1) * req.PageSize).Find(&infos).Error; err != nil {
+		log.Error("根据 id 获取 结构体 信息错误:%s", err.Error())
+		return result, model.ReturnWithCode(model.CodeUnknownError, err)
+	}
+
+	structIds := make([]int, len(infos))
+	for i, info := range infos {
+		structIds[i] = info.Id
+	}
+
+	fields := make([]model.DBField, 0)
+	if err := GetDB().Where("parent_id IN (?)", structIds).Find(&fields).Error; err != nil {
+		log.Error("根据 结构体IDs(%v) 获取 对应字段信息 错误:%s", structIds, err.Error())
+		return result, model.ReturnWithCode(model.CodeUnknownError, err)
+	}
+
+	fieldMap := make(map[int][]model.DBField)
+	for _, f := range fields {
+		if _, ok := fieldMap[f.ParentId]; !ok {
+			fieldMap[f.ParentId] = make([]model.DBField, 0)
+		}
+
+		fieldMap[f.ParentId] = append(fieldMap[f.ParentId], f)
+	}
+
+	for i, info := range infos {
+		if list, ok := fieldMap[info.Id]; ok {
+			sort.Sort(model.FieldList(list))
+			info.Fields = list
+			infos[i] = info
+		} else {
+			info.Fields = make([]model.DBField, 0)
+			infos[i] = info
+		}
+	}
+
+	result.Sum = count
+	result.List = infos
+	result.SetSuccess()
+
+	return result, nil
+}
+
 // 新建结构体
 func CreateStruct(reqInfo model.CreateStructReq) (model.CreateStructResp, error) {
 	var result model.CreateStructResp
 
-	tx := _DB.Begin()
-	data := reqInfo.ToNormal()
+	tx := GetDB().Begin()
+	data := reqInfo.ToDBStruct()
 
 	if err := tx.Save(&data).Error; err != nil {
 		tx.Rollback()
@@ -62,6 +116,7 @@ func CreateStruct(reqInfo model.CreateStructReq) (model.CreateStructResp, error)
 
 	tx.Commit()
 	result.Id = data.Id
+	result.SetSuccess()
 	return result, nil
 }
 
@@ -69,19 +124,12 @@ func CreateStruct(reqInfo model.CreateStructReq) (model.CreateStructResp, error)
 func UpdateStruct(reqInfo model.UpdateStructReq) (model.UpdateStructResp, error) {
 	var result model.UpdateStructResp
 
-	tx := _DB.Begin()
-	data := reqInfo.StructInfo
+	tx := GetDB().Begin()
+	data := reqInfo.DBStructInfo
 
 	if err := tx.Where("id = ?", data.Id).Save(data).Error; err != nil {
 		tx.Rollback()
 		log.Error("更新 结构体 信息错误:%s", err.Error())
-		return result, model.ReturnWithCode(model.CodeUnknownError, err)
-	}
-
-	// 删除之前的字段,再新建新的字段
-	if err := tx.Where("parent_id = ?", data.Id).Delete(&model.Field{}).Error; err != nil {
-		tx.Rollback()
-		log.Error("删除 结构体对应字段 信息错误:%s", err.Error())
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
 	}
 
@@ -96,6 +144,7 @@ func UpdateStruct(reqInfo model.UpdateStructReq) (model.UpdateStructResp, error)
 
 	tx.Commit()
 	result.Id = data.Id
+	result.SetSuccess()
 	return result, nil
 }
 
@@ -103,15 +152,15 @@ func UpdateStruct(reqInfo model.UpdateStructReq) (model.UpdateStructResp, error)
 func DeleteStruct(id int) (model.DeleteStructResp, error) {
 	var result model.DeleteStructResp
 
-	tx := _DB.Begin()
+	tx := GetDB().Begin()
 
-	if err := tx.Where("id = ?", id).Delete(&model.StructInfo{}).Error; err != nil {
+	if err := tx.Where("id = ?", id).Delete(&model.DBStructInfo{}).Error; err != nil {
 		tx.Rollback()
 		log.Error("删除 结构体 信息错误:%s", err.Error())
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
 	}
 
-	if err := tx.Where("parent_id = ?", id).Delete(&model.Field{}).Error; err != nil {
+	if err := tx.Where("parent_id = ?", id).Delete(&model.DBField{}).Error; err != nil {
 		tx.Rollback()
 		log.Error("删除 结构体对应字段 信息错误:%s", err.Error())
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
@@ -119,59 +168,6 @@ func DeleteStruct(id int) (model.DeleteStructResp, error) {
 
 	tx.Commit()
 	result.Id = id
-	return result, nil
-}
-
-// 获取结构体列表
-func GetStructList(req model.PageReq) (model.GetStructListResp, error) {
-	var result model.GetStructListResp
-	var infos []model.StructInfo
-	var count int
-
-	if err := _DB.Table(model.StructInfo{}.TableName()).Count(&count).Error; err != nil {
-		log.Error("获取 结构体表 数据总数错误:%s", err.Error())
-		return result, model.ReturnWithCode(model.CodeUnknownError, err)
-	}
-
-	if err := _DB.Order("id DESC").Limit(req.PageSize).Offset((req.PageNum - 1) * req.PageSize).Find(&infos).Error; err != nil {
-		log.Error("根据 id 获取 结构体 信息错误:%s", err.Error())
-		return result, model.ReturnWithCode(model.CodeUnknownError, err)
-	}
-
-	structIds := make([]int, len(infos))
-	for i, info := range infos {
-		structIds[i] = info.Id
-	}
-
-	fields := make([]model.Field, 0)
-	if err := _DB.Where("parent_id IN (?)", structIds).Find(&fields).Error; err != nil {
-		log.Error("根据 结构体IDs(%v) 获取 对应字段信息 错误:%s", structIds, err.Error())
-		return result, model.ReturnWithCode(model.CodeUnknownError, err)
-	}
-
-	fieldMap := make(map[int][]model.Field)
-	for _, f := range fields {
-		if _, ok := fieldMap[f.ParentId]; !ok {
-			fieldMap[f.ParentId] = make([]model.Field, 0)
-		}
-
-		fieldMap[f.ParentId] = append(fieldMap[f.ParentId], f)
-	}
-
-	for i, info := range infos {
-		if list, ok := fieldMap[info.Id]; ok {
-			sort.Sort(model.FieldList(list))
-			info.Fields = list
-			infos[i] = info
-		} else {
-			info.Fields = make([]model.Field, 0)
-			infos[i] = info
-		}
-	}
-
-	result.SUm = count
-	result.List = infos
 	result.SetSuccess()
-
 	return result, nil
 }

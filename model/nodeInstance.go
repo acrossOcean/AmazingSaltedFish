@@ -1,7 +1,7 @@
 package model
 
-type NodeInstance struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBNodeInstance struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 所属 链 ID
 	BelongLinkInstanceId int `json:"belongLinkInstanceId" gorm:"column:belong_link_instance_id"`
 	// 所用 node define id
@@ -19,18 +19,18 @@ type NodeInstance struct {
 	GeneratorId int `json:"generatorId" gorm:"column:generator_id"`
 	// 实现方式名称
 	GeneratorName string `json:"generatorName" gorm:"column:generator_name"`
-	// 前一个NodeID, 第一个写-1
-	PreNodeInstanceId int `json:"preNodeInstanceId" gorm:"column:pre_node_instance_id"`
 }
 
-func (receiver NodeInstance) TableName() string {
+func (receiver DBNodeInstance) TableName() string {
 	return "node_instance"
 }
 
-type NodeParamInstance struct {
-	Id int `json:"id" gorm:"column:id"`
+type DBNodeParamInstance struct {
+	Id int `json:"id" gorm:"column:id;primary_key"`
 	// 对应定义ID
 	DefineId int `json:"defineId" gorm:"column:define_id"`
+	// 所属节点 define id
+	NodeDefineId int `json:"nodeDefineId" gorm:"column:node_define_id"`
 	// 所属节点id
 	NodeInstanceId int `json:"nodeInstanceId" gorm:"column:node_instance_id"`
 	// 位置, 1.入参 2.出参
@@ -59,6 +59,6 @@ type NodeParamInstance struct {
 	OutputConst []byte `json:"outputConst" gorm:"type:binary;type:binary;column:output_const"`
 }
 
-func (receiver NodeParamInstance) TableName() string {
+func (receiver DBNodeParamInstance) TableName() string {
 	return "node_param_instance"
 }
