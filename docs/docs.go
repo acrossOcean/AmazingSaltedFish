@@ -2571,10 +2571,6 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/model.NodeParamInstance"
                     }
-                },
-                "preNodeInstanceId": {
-                    "description": "前一个NodeID, 第一个写-1",
-                    "type": "integer"
                 }
             }
         },
@@ -2672,6 +2668,10 @@ var doc = `{
                 "name": {
                     "description": "字段名",
                     "type": "string"
+                },
+                "nodeDefineId": {
+                    "description": "所属节点 define id",
+                    "type": "integer"
                 },
                 "nodeInstanceId": {
                     "description": "所属节点id",
@@ -3051,10 +3051,6 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/model.NodeParamInstance"
                     }
-                },
-                "preNodeInstanceId": {
-                    "description": "前一个NodeID, 第一个写-1",
-                    "type": "integer"
                 }
             }
         },
