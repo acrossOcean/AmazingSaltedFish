@@ -11,7 +11,7 @@
  Target Server Version : 50730
  File Encoding         : 65001
 
- Date: 01/07/2020 15:53:54
+ Date: 03/07/2020 17:28:41
 */
 
 SET NAMES utf8mb4;
@@ -47,7 +47,7 @@ CREATE TABLE `core_generators`  (
   `language` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '实现所用语言',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名字',
   `version` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Version. 实现对应版本',
-  `common` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '注释',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '注释',
   `data` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '实现内容',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -78,9 +78,9 @@ CREATE TABLE `field_info`  (
 DROP TABLE IF EXISTS `link_define`;
 CREATE TABLE `link_define`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_define_id` int(11) NOT NULL COMMENT '所属工程ID',
+  `project_define_id` int(11) DEFAULT NULL COMMENT '所属工程ID',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '链名称',
-  `common` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '注释',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '注释',
   `is_shared` tinyint(1) NOT NULL COMMENT '是否共享, 不共享的话 只能当前工程可用',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -91,10 +91,10 @@ CREATE TABLE `link_define`  (
 DROP TABLE IF EXISTS `link_instance`;
 CREATE TABLE `link_instance`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_instance_id` int(11) NOT NULL COMMENT '所属工程ID',
+  `project_instance_id` int(11) DEFAULT NULL COMMENT '所属工程ID',
   `define_id` int(11) NOT NULL COMMENT '所用 链 定义 id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '链名称',
-  `common` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '注释',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '注释',
   `is_shared` tinyint(1) NOT NULL COMMENT '是否共享, 不共享的话 只能当前工程可用',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -148,11 +148,9 @@ CREATE TABLE `link_param_instance`  (
 DROP TABLE IF EXISTS `node_define`;
 CREATE TABLE `node_define`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `belong_link_define_id` int(11) NOT NULL COMMENT '所属 链 ID',
+  `belong_link_define_id` int(11) DEFAULT NULL COMMENT '所属 链 ID',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '方法名',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '注释',
-  `is_link` tinyint(1) NOT NULL COMMENT '是否是链, 如果不是链, 那么就是节点, 可以是链, 也可以是节点, 如果是链的话,对应记录下 链的ID, 如果是节点,那么记录节点的生成代码实现方式',
-  `link_define_id` int(11) DEFAULT NULL COMMENT '如果是链, 那么需要记录 link define 的ID',
   `pre_node_define_id` int(11) NOT NULL COMMENT '前一个NodeID, 第一个写-1',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -163,7 +161,7 @@ CREATE TABLE `node_define`  (
 DROP TABLE IF EXISTS `node_instance`;
 CREATE TABLE `node_instance`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `belong_link_instance_id` int(11) NOT NULL COMMENT '所属 链 ID',
+  `belong_link_instance_id` int(11) DEFAULT NULL COMMENT '所属 链 ID',
   `define_id` int(11) NOT NULL COMMENT '所用 node define id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '方法名',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '注释',
@@ -171,7 +169,6 @@ CREATE TABLE `node_instance`  (
   `link_instance_id` int(11) DEFAULT NULL COMMENT '如果是链, 那么需要记录 link instance 的ID',
   `generator_id` int(11) DEFAULT NULL COMMENT '实现方式ID, 对应 \"core_generator\" id',
   `generator_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '实现方式名称',
-  `pre_node_instance_id` int(11) DEFAULT NULL COMMENT '前一个NodeID, 第一个写-1',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -201,6 +198,7 @@ DROP TABLE IF EXISTS `node_param_instance`;
 CREATE TABLE `node_param_instance`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `define_id` int(11) NOT NULL COMMENT '对应定义ID',
+  `node_define_id` int(11) NOT NULL COMMENT '所属节点定义id',
   `node_instance_id` int(11) NOT NULL COMMENT '所属节点id',
   `location` int(11) NOT NULL COMMENT '位置, 1.入参 2.出参',
   `param_type` int(11) NOT NULL COMMENT '字段类型',
