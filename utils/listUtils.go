@@ -19,7 +19,7 @@ func (receiver IntList) RemoveDuplicate() []int {
 
 func (receiver IntList) RemoveZero() []int {
 	var result []int
-	for _, i := range result {
+	for _, i := range receiver {
 		if i != 0 {
 			result = append(result, i)
 		}
@@ -45,7 +45,7 @@ func (receiver StringList) RemoveDuplicate() []string {
 
 func (receiver StringList) RemoveZero() []string {
 	var result []string
-	for _, str := range result {
+	for _, str := range receiver {
 		if str != "" {
 			result = append(result, str)
 		}
@@ -56,7 +56,7 @@ func (receiver StringList) RemoveZero() []string {
 
 func (receiver StringList) RemoveSpace() []string {
 	var result []string
-	for _, str := range result {
+	for _, str := range receiver {
 		result = append(result, strings.TrimSpace(str))
 	}
 

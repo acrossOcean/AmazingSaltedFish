@@ -1,5 +1,7 @@
 package check
 
+import "AmazingSaltedFish/utils"
+
 type IntChecker struct {
 	value int
 
@@ -64,43 +66,30 @@ func NewIntCheckOptionIN(targets []int) IntCheckOption {
 }
 
 func (receiver *IntChecker) check() bool {
+	hasFalse := false
 	for _, o := range receiver.options {
+		if hasFalse {
+			return !hasFalse
+		}
 		switch o.operator {
 		case IntOperatorLT:
-			if !(receiver.value < o.target) {
-				return false
-			}
+			hasFalse = receiver.value < o.target == false
 		case IntOperatorLE:
-			if !(receiver.value <= o.target) {
-				return false
-			}
+			hasFalse = receiver.value <= o.target == false
 		case IntOperatorNE:
-			if !(receiver.value != o.target) {
-				return false
-			}
+			hasFalse = receiver.value != o.target == false
 		case IntOperatorEQ:
-			if !(receiver.value == o.target) {
-				return false
-			}
+			hasFalse = receiver.value == o.target == false
 		case IntOperatorGT:
-			if !(receiver.value > o.target) {
-				return false
-			}
+			hasFalse = receiver.value > o.target == false
 		case IntOperatorGE:
-			if !(receiver.value >= o.target) {
-				return false
-			}
+			hasFalse = receiver.value >= o.target == false
 		case IntOperatorIN:
-			found := false
-			for _, target := range o.inTarget {
-				if receiver.value == target {
-					found = true
-					break
-				}
+			if len(o.inTarget) != len(utils.IntList(append(o.inTarget, receiver.value)).RemoveDuplicate()) {
+				hasFalse = true
 			}
-			return found
 		default:
-			return false
+			hasFalse = true
 		}
 	}
 

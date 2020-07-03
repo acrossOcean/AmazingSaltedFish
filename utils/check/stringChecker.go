@@ -1,5 +1,7 @@
 package check
 
+import "AmazingSaltedFish/utils"
+
 type StrChecker struct {
 	value string
 
@@ -89,53 +91,37 @@ func NewStrCheckOptionIN(strTargets []string) StrCheckOption {
 }
 
 func (receiver *StrChecker) check() bool {
+	hasFalse := false
 	for _, o := range receiver.options {
+		if hasFalse {
+			return !hasFalse
+		}
+
 		switch o.operator {
 		case StrOperatorLenLT:
-			if !(len(receiver.value) < o.intTarget) {
-				return false
-			}
+			hasFalse = len(receiver.value) < o.intTarget == false
 		case StrOperatorLenLE:
-			if !(len(receiver.value) <= o.intTarget) {
-				return false
-			}
+			hasFalse = len(receiver.value) <= o.intTarget == false
 		case StrOperatorLenNE:
-			if !(len(receiver.value) != o.intTarget) {
-				return false
-			}
+			hasFalse = len(receiver.value) != o.intTarget == false
 		case StrOperatorLenEQ:
-			if !(len(receiver.value) == o.intTarget) {
-				return false
-			}
+			hasFalse = len(receiver.value) == o.intTarget == false
 		case StrOperatorLenGT:
-			if !(len(receiver.value) > o.intTarget) {
-				return false
-			}
+			hasFalse = len(receiver.value) > o.intTarget == false
 		case StrOperatorLenGE:
-			if !(len(receiver.value) >= o.intTarget) {
-				return false
-			}
+			hasFalse = len(receiver.value) >= o.intTarget == false
 		case StrOperatorStrNE:
-			if !(receiver.value != o.stringTarget) {
-				return false
-			}
+			hasFalse = receiver.value != o.stringTarget == false
 		case StrOperatorStrEQ:
-			if !(receiver.value == o.stringTarget) {
-				return false
-			}
+			hasFalse = receiver.value == o.stringTarget == false
 		case StrOperatorStrIN:
-			found := false
-			for _, target := range o.inStrTarget {
-				if receiver.value == target {
-					found = true
-					break
-				}
+			if len(o.inStrTarget) != len(utils.StringList(append(o.inStrTarget, receiver.value)).RemoveDuplicate()) {
+				hasFalse = true
 			}
-			return found
 		default:
-			return false
+			hasFalse = true
 		}
 	}
 
-	return true
+	return !hasFalse
 }
