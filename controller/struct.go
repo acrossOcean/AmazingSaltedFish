@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetStruct 操作 struct api
 // @Summary 获取一个结构信息
 // @Tags 结构体信息,获取
 // @Accept json
@@ -39,6 +40,7 @@ func GetStruct(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// GetStructList 操作 struct api
 // @Summary 获取结构信息列表
 // @Tags 结构体信息,获取,列表
 // @Accept json
@@ -68,6 +70,7 @@ func GetStructList(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// CreateStruct 操作 struct api
 // @Summary 新建一个结构信息
 // @Tags 结构体信息,新建
 // @Accept json
@@ -113,6 +116,7 @@ func CreateStruct(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// UpdateStruct 操作 struct api
 // @Summary 更新一个结构信息
 // @Tags 结构体信息,更新
 // @Accept json
@@ -130,7 +134,7 @@ func UpdateStruct(ctx *gin.Context) {
 	}
 
 	if !check.PassCheck(
-		check.NewIntChecker(reqInfo.Id, check.NewIntCheckOption(check.IntOperatorGT, 0)),
+		check.NewIntChecker(reqInfo.ID, check.NewIntCheckOption(check.IntOperatorGT, 0)),
 		check.NewStrChecker(reqInfo.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
 	) {
 		respParamError(ctx, reqInfo)
@@ -159,6 +163,7 @@ func UpdateStruct(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// DeleteStruct 操作 struct api
 // @Summary 删除一个结构信息
 // @Tags 结构体信息,删除
 // @Accept json

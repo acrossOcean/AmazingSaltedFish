@@ -1,6 +1,6 @@
 package model
 
-// 结构信息
+// LinkDefineInfo 结构信息
 // 包含结构定义, 如果含有实现, 也包含实现信息
 type LinkDefineInfo struct {
 	DBLinkDefine
@@ -8,12 +8,14 @@ type LinkDefineInfo struct {
 	ParamList   []LinkParamDefine `json:"paramList"`
 }
 
+// GetLinkDefineResp 获取 project define 信息返回结构
 type GetLinkDefineResp struct {
 	BaseResp
 	// 结构体信息
 	Info LinkDefineInfo `json:"info"`
 }
 
+// CreateLinkDefineReq 新建 project define 信息请求结构
 type CreateLinkDefineReq struct {
 	// 项目名
 	Name string `json:"name"`
@@ -23,6 +25,7 @@ type CreateLinkDefineReq struct {
 	ParamList []LinkParamDefine `json:"paramList"`
 }
 
+// ToDBStruct 转换为数据库对应结构
 func (receiver CreateLinkDefineReq) ToDBStruct() (DBLinkDefine, []DBLinkParamDefine) {
 	var result = DBLinkDefine{
 		Name:    receiver.Name,
@@ -44,28 +47,33 @@ func (receiver CreateLinkDefineReq) ToDBStruct() (DBLinkDefine, []DBLinkParamDef
 	return result, list
 }
 
+// CreateLinkDefineResp 新建 project define 信息返回结构
 type CreateLinkDefineResp struct {
 	BaseResp
 	// 创建成功后的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// UpdateLinkDefineReq 更新 project define 信息请求结构
 type UpdateLinkDefineReq struct {
 	LinkDefineInfo
 }
 
+// UpdateLinkDefineResp 更新 project define 信息返回结构
 type UpdateLinkDefineResp struct {
 	BaseResp
 	// 更新的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// DeleteLinkDefineResp 删除 project define 信息返回结构
 type DeleteLinkDefineResp struct {
 	BaseResp
 	// 删除的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// GetLinkDefineListResp 获取 project define 列表返回结构
 type GetLinkDefineListResp struct {
 	BaseResp
 	// 项目列表
@@ -74,7 +82,7 @@ type GetLinkDefineListResp struct {
 	Sum int `json:"sum"`
 }
 
-// 项目参数信息
+// LinkParamDefine link param define 信息
 type LinkParamDefine struct {
 	DBLinkParamDefine
 	HasInstance bool `json:"hasInstance"`

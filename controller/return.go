@@ -11,7 +11,7 @@ import (
 )
 
 func respParamError(ctx *gin.Context, param interface{}) {
-	log.Debug("请求发送参数错误, 参数为:%v", utils.GetJsonOutput(param))
+	log.Debug("请求发送参数错误, 参数为:%v", utils.GetJSONOutput(param))
 	ctx.JSON(http.StatusBadRequest, model.RespParamError)
 }
 

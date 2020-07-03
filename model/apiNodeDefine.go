@@ -2,7 +2,7 @@ package model
 
 import "AmazingSaltedFish/utils/check"
 
-// 结构信息
+// NodeDefineInfo 结构信息
 // 包含结构定义, 如果含有实现, 也包含实现信息
 type NodeDefineInfo struct {
 	DBNodeDefine
@@ -10,33 +10,28 @@ type NodeDefineInfo struct {
 	ParamList   []NodeParamDefine `json:"paramList"`
 }
 
+// GetNodeDefineResp 获取 project define 信息返回结构
 type GetNodeDefineResp struct {
 	BaseResp
 	// node信息
 	Info NodeDefineInfo `json:"info"`
 }
 
-type GetNodeDefineListResp struct {
-	BaseResp
-	// node列表
-	List []NodeDefineInfo `json:"list"`
-	// 总数据条数
-	Sum int `json:"sum"`
-}
-
+// CreateNodeDefineReq 新建 project define 信息请求结构
 type CreateNodeDefineReq struct {
 	// 所属link id
-	BelongLinkDefineId int `json:"belongLinkDefineId"`
+	BelongLinkDefineID int `json:"belongLinkDefineId"`
 	// node名
 	Name string `json:"name"`
 	// 注释
 	Comment string `json:"comment"`
 	// 前一个nodeID , 第一个写-1
-	PreNodeDefineId int `json:"preNodeDefineId"`
+	PreNodeDefineID int `json:"preNodeDefineId"`
 	// 参数列表
 	ParamList []NodeParamDefine `json:"paramList"`
 }
 
+// Check 检查请求参数是否合法
 func (receiver CreateNodeDefineReq) Check() bool {
 	if !check.PassCheck(
 		check.NewStrChecker(receiver.Name, check.NewStrCheckOptionInt(check.StrOperatorLenGT, 0)),
@@ -64,6 +59,7 @@ func (receiver CreateNodeDefineReq) Check() bool {
 	return true
 }
 
+// ToDBStruct 转换为数据库对应结构
 func (receiver CreateNodeDefineReq) ToDBStruct() (DBNodeDefine, []DBNodeParamDefine) {
 	var result = DBNodeDefine{
 		Name:    receiver.Name,
@@ -78,19 +74,22 @@ func (receiver CreateNodeDefineReq) ToDBStruct() (DBNodeDefine, []DBNodeParamDef
 	return result, list
 }
 
+// CreateNodeDefineResp 新建 project define 信息返回结构
 type CreateNodeDefineResp struct {
 	BaseResp
 	// 创建成功后的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// UpdateNodeDefineReq 更新 project define 信息请求结构
 type UpdateNodeDefineReq struct {
 	NodeDefineInfo
 }
 
+// Check 检查请求参数是否合法
 func (receiver UpdateNodeDefineReq) Check() bool {
 	if !check.PassCheck(
-		check.NewIDChecker(receiver.Id),
+		check.NewIDChecker(receiver.ID),
 		check.NewStrChecker(receiver.Name, check.NewStrCheckOptionInt(check.StrOperatorLenGT, 0)),
 		check.NewStrChecker(receiver.Comment, check.NewStrCheckOptionInt(check.StrOperatorLenGT, 0)),
 		check.NewStrChecker(receiver.Name, check.NewStrCheckOptionInt(check.StrOperatorLenLT, 200)),
@@ -116,37 +115,49 @@ func (receiver UpdateNodeDefineReq) Check() bool {
 	return true
 }
 
+// UpdateNodeDefineResp 更新 project define 信息返回结构
 type UpdateNodeDefineResp struct {
 	BaseResp
 	// 更新的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// DeleteNodeDefineResp 删除 project define 信息返回结构
 type DeleteNodeDefineResp struct {
 	BaseResp
 	// 删除的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
-// 项目参数信息
+// GetNodeDefineListResp  获取 project define 列表返回结构
+type GetNodeDefineListResp struct {
+	BaseResp
+	// node列表
+	List []NodeDefineInfo `json:"list"`
+	// 总数据条数
+	Sum int `json:"sum"`
+}
+
+// NodeParamDefine node param define 信息
 type NodeParamDefine struct {
 	DBNodeParamDefine
 	HasInstance bool `json:"hasInstance"`
 }
 
+// ToDBStruct 转换为数据库对应结构
 func (receiver NodeParamDefine) ToDBStruct() DBNodeParamDefine {
 	var result = DBNodeParamDefine{
-		Id:              receiver.Id,
-		NodeDefineId:    receiver.NodeDefineId,
+		ID:              receiver.ID,
+		NodeDefineID:    receiver.NodeDefineID,
 		Location:        receiver.Location,
 		PType:           receiver.PType,
 		Name:            receiver.Name,
 		Comment:         receiver.Comment,
 		IsList:          receiver.IsList,
 		Sort:            receiver.Sort,
-		StructId:        receiver.StructId,
-		MapKeyParamId:   receiver.MapKeyParamId,
-		MapValueParamId: receiver.MapValueParamId,
+		StructID:        receiver.StructID,
+		MapKeyParamID:   receiver.MapKeyParamID,
+		MapValueParamID: receiver.MapValueParamID,
 	}
 
 	return result

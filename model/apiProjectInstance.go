@@ -1,21 +1,23 @@
 package model
 
-// 结构信息
+// ProjectInstanceInfo  project instance 结构信息
 // 包含结构定义, 如果含有实现, 也包含实现信息
 type ProjectInstanceInfo struct {
 	DBProjectInstance
 	ParamList []ProjectParamInstance `json:"paramList"`
 }
 
+// GetProjectInstanceResp 获取 project instance 信息返回结构
 type GetProjectInstanceResp struct {
 	BaseResp
 	// 结构体信息
 	Info ProjectInstanceInfo `json:"info"`
 }
 
+// CreateProjectInstanceReq 新建 project instance 信息请求结构
 type CreateProjectInstanceReq struct {
 	// 对应 定义 id
-	DefineId int `json:"defineId"`
+	DefineID int `json:"defineId"`
 	// 工程名
 	Name string `json:"name"`
 	// 注释
@@ -24,21 +26,22 @@ type CreateProjectInstanceReq struct {
 	GenerateLanguage string `json:"generateLanguage"`
 
 	// 第一个 link 信息
-	FirstLinkDefineId   int `json:"firstLinkDefineId"`
-	FirstLinkInstanceId int `json:"firstLinkInstanceId"`
+	FirstLinkDefineID   int `json:"firstLinkDefineId"`
+	FirstLinkInstanceID int `json:"firstLinkInstanceId"`
 
 	// 参数信息
 	ParamList []ProjectParamInstance `json:"paramList"`
 }
 
+// ToDBStruct 转换为数据库对应结构
 func (receiver CreateProjectInstanceReq) ToDBStruct() (DBProjectInstance, []DBProjectParamInstance) {
 	var result = DBProjectInstance{
-		DefineId:            receiver.DefineId,
+		DefineID:            receiver.DefineID,
 		Name:                receiver.Name,
 		Comment:             receiver.Comment,
 		GenerateLanguage:    receiver.GenerateLanguage,
-		FirstLinkDefineId:   receiver.FirstLinkDefineId,
-		FirstLinkInstanceId: receiver.FirstLinkInstanceId,
+		FirstLinkDefineID:   receiver.FirstLinkDefineID,
+		FirstLinkInstanceID: receiver.FirstLinkInstanceID,
 	}
 
 	list := make([]DBProjectParamInstance, len(receiver.ParamList))
@@ -52,8 +55,8 @@ func (receiver CreateProjectInstanceReq) ToDBStruct() (DBProjectInstance, []DBPr
 			InputType:          p.InputType,
 			InputConst:         p.InputConst,
 			InputVarIsLink:     p.InputVarIsLink,
-			InputVarDefineId:   p.InputVarDefineId,
-			InputVarInstanceId: p.InputVarInstanceId,
+			InputVarDefineID:   p.InputVarDefineID,
+			InputVarInstanceID: p.InputVarInstanceID,
 			OutputType:         p.OutputType,
 			OutputConst:        p.OutputConst,
 		}
@@ -62,28 +65,33 @@ func (receiver CreateProjectInstanceReq) ToDBStruct() (DBProjectInstance, []DBPr
 	return result, list
 }
 
+// CreateProjectInstanceResp 新建 project instance 信息返回结构
 type CreateProjectInstanceResp struct {
 	BaseResp
 	// 创建成功后的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// UpdateProjectInstanceReq 更新 project instance 信息请求结构
 type UpdateProjectInstanceReq struct {
 	ProjectInstanceInfo
 }
 
+// UpdateProjectInstanceResp 更新 project instance 信息返回结构
 type UpdateProjectInstanceResp struct {
 	BaseResp
 	// 更新的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// DeleteProjectInstanceResp 删除 project instance 信息返回结构
 type DeleteProjectInstanceResp struct {
 	BaseResp
 	// 删除的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// GetProjectInstanceListResp 获取 project instance 列表返回结构
 type GetProjectInstanceListResp struct {
 	BaseResp
 	// 项目列表
@@ -92,7 +100,7 @@ type GetProjectInstanceListResp struct {
 	Sum int `json:"sum"`
 }
 
-// 项目参数信息
+// ProjectParamInstance project param instance 信息
 type ProjectParamInstance struct {
 	DBProjectParamInstance
 }

@@ -1,21 +1,23 @@
 package model
 
-// 结构信息
+// NodeInstanceInfo 结构信息
 // 包含结构定义, 如果含有实现, 也包含实现信息
 type NodeInstanceInfo struct {
 	DBNodeInstance
 	ParamList []NodeParamInstance `json:"paramList"`
 }
 
+// GetNodeInstanceResp 获取 node instance 信息返回结构
 type GetNodeInstanceResp struct {
 	BaseResp
 	// 结构体信息
 	Info NodeInstanceInfo `json:"info"`
 }
 
+// CreateNodeInstanceReq 新建 node instance 信息请求结构
 type CreateNodeInstanceReq struct {
 	// 对应 定义 id
-	DefineId int `json:"defineId"`
+	DefineID int `json:"defineId"`
 	// 工程名
 	Name string `json:"name"`
 	// 注释
@@ -24,21 +26,22 @@ type CreateNodeInstanceReq struct {
 	GenerateLanguage string `json:"generateLanguage"`
 
 	// 第一个 link 信息
-	FirstLinkDefineId   int `json:"firstLinkDefineId"`
-	FirstLinkInstanceId int `json:"firstLinkInstanceId"`
+	FirstLinkDefineID   int `json:"firstLinkDefineId"`
+	FirstLinkInstanceID int `json:"firstLinkInstanceId"`
 
 	// 参数信息
 	ParamList []NodeParamInstance `json:"paramList"`
 }
 
+// ToDBStruct 转换为数据库对应结构
 func (receiver CreateNodeInstanceReq) ToDBStruct() (DBNodeInstance, []DBNodeParamInstance) {
 	var result = DBNodeInstance{
-		DefineId: receiver.DefineId,
+		DefineID: receiver.DefineID,
 		Name:     receiver.Name,
 		Comment:  receiver.Comment,
 		//GenerateLanguage:    receiver.GenerateLanguage,
-		//FirstLinkDefineId:   receiver.FirstLinkDefineId,
-		//FirstLinkInstanceId: receiver.FirstLinkInstanceId,
+		//FirstLinkDefineID:   receiver.FirstLinkDefineID,
+		//FirstLinkInstanceID: receiver.FirstLinkInstanceID,
 	}
 
 	list := make([]DBNodeParamInstance, len(receiver.ParamList))
@@ -52,8 +55,8 @@ func (receiver CreateNodeInstanceReq) ToDBStruct() (DBNodeInstance, []DBNodePara
 			InputType:          p.InputType,
 			InputConst:         p.InputConst,
 			InputVarIsLink:     p.InputVarIsLink,
-			InputVarDefineId:   p.InputVarDefineId,
-			InputVarInstanceId: p.InputVarInstanceId,
+			InputVarDefineID:   p.InputVarDefineID,
+			InputVarInstanceID: p.InputVarInstanceID,
 			OutputType:         p.OutputType,
 			OutputConst:        p.OutputConst,
 		}
@@ -62,28 +65,33 @@ func (receiver CreateNodeInstanceReq) ToDBStruct() (DBNodeInstance, []DBNodePara
 	return result, list
 }
 
+// CreateNodeInstanceResp 新建 node instance 信息返回结构
 type CreateNodeInstanceResp struct {
 	BaseResp
 	// 创建成功后的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// UpdateNodeInstanceReq 更新 node instance 信息请求结构
 type UpdateNodeInstanceReq struct {
 	NodeInstanceInfo
 }
 
+// UpdateNodeInstanceResp 更新 node instance 信息返回结构
 type UpdateNodeInstanceResp struct {
 	BaseResp
 	// 更新的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// DeleteNodeInstanceResp 删除 node instance 信息返回结构
 type DeleteNodeInstanceResp struct {
 	BaseResp
 	// 删除的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// GetNodeInstanceListResp 获取 node instance 列表返回结构
 type GetNodeInstanceListResp struct {
 	BaseResp
 	// 项目列表
@@ -92,7 +100,7 @@ type GetNodeInstanceListResp struct {
 	Sum int `json:"sum"`
 }
 
-// 项目参数信息
+// NodeParamInstance node param instance 信息
 type NodeParamInstance struct {
 	DBNodeParamInstance
 }

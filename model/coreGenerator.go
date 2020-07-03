@@ -1,8 +1,9 @@
 package model
 
-// 实现核心, 所有核心的逻辑全放到这里
+// DBCoreGenerator 实现核心, 所有核心的逻辑全放到这里
+// 对应数据库结构
 type DBCoreGenerator struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 
 	// 实现所用语言
 	Language string `json:"language" gorm:"column:language"`
@@ -17,10 +18,17 @@ type DBCoreGenerator struct {
 	Data string `json:"-" gorm:"type:text;column:data"`
 }
 
+// TableName 对应数据库表名
+func (receiver *DBCoreGenerator) TableName() string {
+	return "core_generator"
+}
+
+// DBCoreGeneratorParam 实现核心所需参数
+// 对应数据库结构
 type DBCoreGeneratorParam struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所属生成器id
-	GeneratorId int `json:"generatorId" gorm:"column:generator_id"`
+	GeneratorID int `json:"generatorId" gorm:"column:generator_id"`
 	// 位置, 1.入参 2.出参
 	Location int `json:"isParam" gorm:"column:location"`
 	// 字段类型
@@ -35,13 +43,18 @@ type DBCoreGeneratorParam struct {
 	Sort int `json:"sort" gorm:"column:sort"`
 
 	// 对应结构体ID, 当 FType 为 ParamTypeStruct 时 有用
-	StructId int `json:"structId" gorm:"column:struct_id"`
+	StructID int `json:"structId" gorm:"column:struct_id"`
 
 	// 当ParamType 为 map 时
-	MapKeyParamId   int `json:"mapKeyParamId" gorm:"column:map_key_param_id"`
-	MapValueParamId int `json:"mapValueParamId" gorm:"column:map_value_param_id"`
+	MapKeyParamID   int `json:"mapKeyParamId" gorm:"column:map_key_param_id"`
+	MapValueParamID int `json:"mapValueParamId" gorm:"column:map_value_param_id"`
 
 	// 如果是固定值, 那么记录
 	IsConst   bool   `json:"isConst" gorm:"column:is_const"`
 	ConstData []byte `json:"constData" gorm:"type:binary;column:const_data"`
+}
+
+// TableName 对应数据库表名
+func (receiver *DBCoreGeneratorParam) TableName() string {
+	return "core_generator_param"
 }

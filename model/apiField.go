@@ -1,5 +1,6 @@
 package model
 
+// CreateFieldInfo 新建 field 信息请求结构
 type CreateFieldInfo struct {
 	// 字段类型
 	Type FieldType `json:"type" swaggertype:"integer"`
@@ -8,21 +9,22 @@ type CreateFieldInfo struct {
 	// 字段注释
 	Comment string `json:"comment"`
 	// 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
-	StructId int `json:"structId"`
+	StructID int `json:"structId"`
 	// 是否为 列表
 	IsList bool `json:"isList"`
 	// 排序位置
 	Sort int `json:"sort"`
 }
 
+// ToDBStruct 转换为数据库对应结构
 func (receiver CreateFieldInfo) ToDBStruct() DBField {
 	var result = DBField{
-		Id:       0,
-		ParentId: 0,
+		ID:       0,
+		ParentID: 0,
 		FType:    receiver.Type,
 		Name:     receiver.Name,
 		Comment:  receiver.Comment,
-		StructId: receiver.StructId,
+		StructID: receiver.StructID,
 		IsList:   receiver.IsList,
 		Sort:     receiver.Sort,
 	}

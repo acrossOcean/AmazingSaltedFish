@@ -6,18 +6,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// InitRouter 初始化路由
 func InitRouter(r *gin.RouterGroup) {
 	v1Router := r.Group("/v1")
 
 	// 添加框架
-	InitStructRouter(v1Router)
-	InitProjectRouter(v1Router)
-	InitLinkRouter(v1Router)
-	InitNodeRouter(v1Router)
+	initStructRouter(v1Router)
+	initProjectRouter(v1Router)
+	initLinkRouter(v1Router)
+	initNodeRouter(v1Router)
 }
 
 // 结构定义
-func InitStructRouter(router *gin.RouterGroup) {
+func initStructRouter(router *gin.RouterGroup) {
 	r := router.Group("/struct")
 	{
 		r.POST("/", controller.CreateStruct)
@@ -30,7 +31,7 @@ func InitStructRouter(router *gin.RouterGroup) {
 }
 
 // 项目路由
-func InitProjectRouter(router *gin.RouterGroup) {
+func initProjectRouter(router *gin.RouterGroup) {
 	r := router.Group("/proj")
 	{
 		defineRouter := r.Group("/define")
@@ -62,7 +63,7 @@ func InitProjectRouter(router *gin.RouterGroup) {
 }
 
 // link 路由
-func InitLinkRouter(router *gin.RouterGroup) {
+func initLinkRouter(router *gin.RouterGroup) {
 	r := router.Group("/link")
 	{
 		defineRouter := r.Group("/define")
@@ -94,7 +95,7 @@ func InitLinkRouter(router *gin.RouterGroup) {
 }
 
 // node 路由
-func InitNodeRouter(router *gin.RouterGroup) {
+func initNodeRouter(router *gin.RouterGroup) {
 	r := router.Group("/node")
 	{
 		defineRouter := r.Group("/define")

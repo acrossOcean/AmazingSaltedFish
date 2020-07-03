@@ -1,21 +1,23 @@
 package model
 
-// 结构信息
+// LinkInstanceInfo 结构信息
 // 包含结构定义, 如果含有实现, 也包含实现信息
 type LinkInstanceInfo struct {
 	DBLinkInstance
 	ParamList []LinkParamInstance `json:"paramList"`
 }
 
+// GetLinkInstanceResp 获取 link instance 信息返回结构
 type GetLinkInstanceResp struct {
 	BaseResp
 	// 结构体信息
 	Info LinkInstanceInfo `json:"info"`
 }
 
+// CreateLinkInstanceReq 新建 link instance 信息请求结构
 type CreateLinkInstanceReq struct {
 	// 对应 定义 id
-	DefineId int `json:"defineId"`
+	DefineID int `json:"defineId"`
 	// 工程名
 	Name string `json:"name"`
 	// 注释
@@ -24,21 +26,22 @@ type CreateLinkInstanceReq struct {
 	GenerateLanguage string `json:"generateLanguage"`
 
 	// 第一个 link 信息
-	FirstLinkDefineId   int `json:"firstLinkDefineId"`
-	FirstLinkInstanceId int `json:"firstLinkInstanceId"`
+	FirstLinkDefineID   int `json:"firstLinkDefineId"`
+	FirstLinkInstanceID int `json:"firstLinkInstanceId"`
 
 	// 参数信息
 	ParamList []LinkParamInstance `json:"paramList"`
 }
 
+// ToDBStruct 转换为数据库对应结构
 func (receiver CreateLinkInstanceReq) ToDBStruct() (DBLinkInstance, []DBLinkParamInstance) {
 	var result = DBLinkInstance{
-		DefineId: receiver.DefineId,
+		DefineID: receiver.DefineID,
 		Name:     receiver.Name,
 		Comment:  receiver.Comment,
 		//GenerateLanguage:    receiver.GenerateLanguage,
-		//FirstLinkDefineId:   receiver.FirstLinkDefineId,
-		//FirstLinkInstanceId: receiver.FirstLinkInstanceId,
+		//FirstLinkDefineID:   receiver.FirstLinkDefineID,
+		//FirstLinkInstanceID: receiver.FirstLinkInstanceID,
 	}
 
 	list := make([]DBLinkParamInstance, len(receiver.ParamList))
@@ -52,8 +55,8 @@ func (receiver CreateLinkInstanceReq) ToDBStruct() (DBLinkInstance, []DBLinkPara
 			InputType:          p.InputType,
 			InputConst:         p.InputConst,
 			InputVarIsLink:     p.InputVarIsLink,
-			InputVarDefineId:   p.InputVarDefineId,
-			InputVarInstanceId: p.InputVarInstanceId,
+			InputVarDefineID:   p.InputVarDefineID,
+			InputVarInstanceID: p.InputVarInstanceID,
 			OutputType:         p.OutputType,
 			OutputConst:        p.OutputConst,
 		}
@@ -62,28 +65,33 @@ func (receiver CreateLinkInstanceReq) ToDBStruct() (DBLinkInstance, []DBLinkPara
 	return result, list
 }
 
+// CreateLinkInstanceResp 新建 link instance 信息返回结构
 type CreateLinkInstanceResp struct {
 	BaseResp
 	// 创建成功后的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// UpdateLinkInstanceReq 更新 link instance 信息请求结构
 type UpdateLinkInstanceReq struct {
 	LinkInstanceInfo
 }
 
+// UpdateLinkInstanceResp 更新 link instance 信息返回结构
 type UpdateLinkInstanceResp struct {
 	BaseResp
 	// 更新的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// DeleteLinkInstanceResp 删除 link instance 信息返回结构
 type DeleteLinkInstanceResp struct {
 	BaseResp
 	// 删除的ID
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
+// GetLinkInstanceListResp 获取 link instance 列表返回结构
 type GetLinkInstanceListResp struct {
 	BaseResp
 	// 项目列表
@@ -92,7 +100,7 @@ type GetLinkInstanceListResp struct {
 	Sum int `json:"sum"`
 }
 
-// 项目参数信息
+// LinkParamInstance link param instance 信息
 type LinkParamInstance struct {
 	DBLinkParamInstance
 }

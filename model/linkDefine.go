@@ -1,10 +1,10 @@
 package model
 
-// 链 定义
+// DBLinkDefine link define 对应数据库结构
 type DBLinkDefine struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所属工程ID
-	ProjectDefineId int `json:"projectDefineId" gorm:"column:project_define_id"`
+	ProjectDefineID int `json:"projectDefineId" gorm:"column:project_define_id"`
 	// 链名称
 	Name string `json:"name" gorm:"column:name"`
 	// 注释
@@ -14,14 +14,16 @@ type DBLinkDefine struct {
 	IsShared bool `json:"isShared" gorm:"column:is_shared"`
 }
 
+// TableName link define 对应数据库表名
 func (receiver DBLinkDefine) TableName() string {
 	return "link_define"
 }
 
+// DBLinkParamDefine link param define 对应数据库结构
 type DBLinkParamDefine struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所属 链 id
-	LinkDefineId int `json:"linkDefineId" gorm:"column:link_define_id"`
+	LinkDefineID int `json:"linkDefineId" gorm:"column:link_define_id"`
 	// 位置, 1.入参 2.出参
 	Location int `json:"isParam" gorm:"column:location"`
 	// 字段类型
@@ -36,17 +38,18 @@ type DBLinkParamDefine struct {
 	Sort int `json:"sort" gorm:"column:sort"`
 
 	// 对应结构体ID, 当 FType 为 ParamTypeStruct 时 有用
-	StructId int `json:"structId" gorm:"column:struct_id"`
+	StructID int `json:"structId" gorm:"column:struct_id"`
 
 	// 当ParamType 为 map 时
-	MapKeyParamId   int `json:"mapKeyParamId" gorm:"column:map_key_param_id"`
-	MapValueParamId int `json:"mapValueParamId" gorm:"column:map_value_param_id"`
+	MapKeyParamID   int `json:"mapKeyParamId" gorm:"column:map_key_param_id"`
+	MapValueParamID int `json:"mapValueParamId" gorm:"column:map_value_param_id"`
 
 	// 如果是固定值, 那么记录
 	IsConst   bool   `json:"isConst" gorm:"column:is_const"`
 	ConstData []byte `json:"constData" gorm:"type:binary;column:const_data"`
 }
 
+// TableName link param define 对应数据库表名
 func (receiver DBLinkParamDefine) TableName() string {
 	return "link_param_define"
 }

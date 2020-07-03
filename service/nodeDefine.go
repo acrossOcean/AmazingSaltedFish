@@ -8,6 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// GetNodeDefine 获取 node define 信息
 func GetNodeDefine(id int) (model.GetNodeDefineResp, error) {
 	var result model.GetNodeDefineResp
 	var info model.DBNodeDefine
@@ -24,11 +25,11 @@ func GetNodeDefine(id int) (model.GetNodeDefineResp, error) {
 	var count int
 	err = GetDB().Table(model.DBNodeInstance{}.TableName()).Where("define_id = ?", info.Id).Count(&count).Error
 	if err != nil {
-		log.Error("根据 node define ID(%v) 获取 对应 实现 信息数量 错误:%s", info.Id, err.Error())
+		log.Error("根据 node define ID(%v) 获取 对应 实现 信息数量 错误:%s", info.ID, err.Error())
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
 	}
 
-	params, err := GetNodeParamsDefineByNodeId(info.Id)
+	params, err := GetNodeParamsDefineByNodeID(info.Id)
 	if err != nil {
 		log.Error("根据 node define id 获取参数信息错误:%s", err.Error())
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
@@ -42,6 +43,7 @@ func GetNodeDefine(id int) (model.GetNodeDefineResp, error) {
 	return result, nil
 }
 
+// GetNodeDefineList 获取 node define 列表信息
 func GetNodeDefineList(reqInfo model.PageReq) (model.GetNodeDefineListResp, error) {
 	var result model.GetNodeDefineListResp
 	var list = make([]model.NodeDefineInfo, 0)
@@ -66,7 +68,7 @@ func GetNodeDefineList(reqInfo model.PageReq) (model.GetNodeDefineListResp, erro
 
 	// 查询
 	var instanceCountList = make([]struct {
-		Id    int `gorm:"column:id"`
+		ID    int `gorm:"column:id"`
 		Count int `gorm:"column:count"`
 	}, 0)
 
@@ -78,7 +80,7 @@ func GetNodeDefineList(reqInfo model.PageReq) (model.GetNodeDefineListResp, erro
 	}
 	instanceMap := make(map[int]int)
 	for _, count := range instanceCountList {
-		instanceMap[count.Id] = count.Count
+		instanceMap[count.ID] = count.Count
 	}
 
 	paramMap, err := GetNodeParamsDefineByNodeIds(ids)
@@ -103,6 +105,7 @@ func GetNodeDefineList(reqInfo model.PageReq) (model.GetNodeDefineListResp, erro
 	return result, nil
 }
 
+// CreateNodeDefine 新建 node define 信息
 func CreateNodeDefine(reqInfo model.CreateNodeDefineReq) (model.CreateNodeDefineResp, error) {
 	var result model.CreateNodeDefineResp
 
@@ -118,7 +121,7 @@ func CreateNodeDefine(reqInfo model.CreateNodeDefineReq) (model.CreateNodeDefine
 	}
 
 	for _, param := range paramList {
-		param.NodeDefineId = info.Id
+		param.NodeDefineID = info.Id
 		if err := tx.Save(&param).Error; err != nil {
 			tx.Rollback()
 			log.Error("保存 node param define 信息错误:%s", err.Error())
@@ -127,12 +130,13 @@ func CreateNodeDefine(reqInfo model.CreateNodeDefineReq) (model.CreateNodeDefine
 	}
 
 	tx.Commit()
-	result.Id = info.Id
+	result.ID = info.Id
 	result.SetSuccess()
 
 	return result, nil
 }
 
+// UpdateNodeDefine 更新 node define 信息
 func UpdateNodeDefine(reqInfo model.UpdateNodeDefineReq) (model.UpdateNodeDefineResp, error) {
 	var result model.UpdateNodeDefineResp
 
@@ -142,10 +146,10 @@ func UpdateNodeDefine(reqInfo model.UpdateNodeDefineReq) (model.UpdateNodeDefine
 		if err == gorm.ErrRecordNotFound {
 			log.Error("要更新的 node define 数据(%d)不存在", reqInfo.Id)
 			return result, model.ReturnWithCode(model.CodeResourceNotExist, err)
-		} else {
-			log.Error("获取要更新的 node define 数据(%d)错误:%s", reqInfo.Id, err.Error())
-			return result, model.ReturnWithCode(model.CodeUnknownError, err)
 		}
+
+		log.Error("获取要更新的 node define 数据(%d)错误:%s", reqInfo.ID, err.Error())
+		return result, model.ReturnWithCode(model.CodeUnknownError, err)
 	}
 
 	// 暂不考虑同步更新实现的问题, 先只更新定义
@@ -157,7 +161,7 @@ func UpdateNodeDefine(reqInfo model.UpdateNodeDefineReq) (model.UpdateNodeDefine
 	}
 
 	for _, param := range reqInfo.ParamList {
-		param.NodeDefineId = reqInfo.Id
+		param.NodeDefineID = reqInfo.Id
 		if err := tx.Save(&param.DBNodeParamDefine).Error; err != nil {
 			tx.Rollback()
 			log.Error("更新 node param define 错误:", err.Error())
@@ -166,7 +170,7 @@ func UpdateNodeDefine(reqInfo model.UpdateNodeDefineReq) (model.UpdateNodeDefine
 	}
 
 	// 如果更改了node 顺序,那么前后节点都重新更改下
-	if reqInfo.PreNodeDefineId != info.PreNodeDefineId {
+	if reqInfo.PreNodeDefineID != info.PreNodeDefineID {
 		if err := tx.Where("pre_node_define_id = ?", info.Id).Update("pre_node_define_id", info.PreNodeDefineId).Error; err != nil {
 			tx.Rollback()
 			log.Error("更新 node define 时, 更新 node define 顺序错误:", err.Error())
@@ -181,12 +185,13 @@ func UpdateNodeDefine(reqInfo model.UpdateNodeDefineReq) (model.UpdateNodeDefine
 	}
 
 	tx.Commit()
-	result.Id = reqInfo.Id
+	result.ID = reqInfo.Id
 	result.SetSuccess()
 
 	return result, nil
 }
 
+// DeleteNodeDefine 删除 node define 信息
 func DeleteNodeDefine(id int) (model.DeleteNodeDefineResp, error) {
 	var result model.DeleteNodeDefineResp
 
@@ -196,10 +201,10 @@ func DeleteNodeDefine(id int) (model.DeleteNodeDefineResp, error) {
 		if err == gorm.ErrRecordNotFound {
 			log.Error("要删除的资源(%d)不存在", id)
 			return result, model.ReturnWithCode(model.CodeResourceNotExist, err)
-		} else {
-			log.Error("获取要删除的资源(%d)错误:%s", id, err.Error())
-			return result, model.ReturnWithCode(model.CodeUnknownError, err)
 		}
+
+		log.Error("获取要删除的资源(%d)错误:%s", id, err.Error())
+		return result, model.ReturnWithCode(model.CodeUnknownError, err)
 	}
 
 	// 删除, 同时删除定义和实例
@@ -237,13 +242,14 @@ func DeleteNodeDefine(id int) (model.DeleteNodeDefineResp, error) {
 	}
 
 	tx.Commit()
-	result.Id = id
+	result.ID = id
 	result.SetSuccess()
 
 	return result, nil
 }
 
-func GetNodeParamsDefineByNodeId(id int) ([]model.NodeParamDefine, error) {
+// GetNodeParamsDefineByNodeID 根据 node define id 获取 定义的参数信息
+func GetNodeParamsDefineByNodeID(id int) ([]model.NodeParamDefine, error) {
 	var result = make([]model.NodeParamDefine, 0)
 
 	// 如果传入id 为0, 那么返回空串
@@ -266,7 +272,7 @@ func GetNodeParamsDefineByNodeId(id int) ([]model.NodeParamDefine, error) {
 
 	// 查询
 	var instanceCountList = make([]struct {
-		Id    int `gorm:"column:id"`
+		ID    int `gorm:"column:id"`
 		Count int `gorm:"column:count"`
 	}, 0)
 
@@ -281,7 +287,7 @@ func GetNodeParamsDefineByNodeId(id int) ([]model.NodeParamDefine, error) {
 		var temp model.NodeParamDefine
 
 		temp.HasInstance = count.Count > 0
-		temp.DBNodeParamDefine = paramMap[count.Id]
+		temp.DBNodeParamDefine = paramMap[count.ID]
 
 		result = append(result, temp)
 	}
@@ -289,6 +295,7 @@ func GetNodeParamsDefineByNodeId(id int) ([]model.NodeParamDefine, error) {
 	return result, nil
 }
 
+// GetNodeParamsDefineByNodeIds 根据 node define ids 获取 定义的参数信息
 func GetNodeParamsDefineByNodeIds(ids []int) (map[int][]model.NodeParamDefine, error) {
 	var result = make(map[int][]model.NodeParamDefine)
 
@@ -314,7 +321,7 @@ func GetNodeParamsDefineByNodeIds(ids []int) (map[int][]model.NodeParamDefine, e
 
 	// 查询
 	var instanceCountList = make([]struct {
-		Id    int `gorm:"column:id"`
+		ID    int `gorm:"column:id"`
 		Count int `gorm:"column:count"`
 	}, 0)
 
@@ -329,11 +336,11 @@ func GetNodeParamsDefineByNodeIds(ids []int) (map[int][]model.NodeParamDefine, e
 		var temp model.NodeParamDefine
 
 		temp.HasInstance = count.Count > 0
-		temp.DBNodeParamDefine = paramMap[count.Id]
+		temp.DBNodeParamDefine = paramMap[count.ID]
 
-		list := result[paramMap[count.Id].NodeDefineId]
+		list := result[paramMap[count.ID].NodeDefineId]
 		list = append(list, temp)
-		result[paramMap[count.Id].NodeDefineId] = list
+		result[paramMap[count.ID].NodeDefineId] = list
 	}
 
 	return result, nil

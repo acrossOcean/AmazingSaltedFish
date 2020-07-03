@@ -1,10 +1,11 @@
 package model
 
+// DBField field 对应 数据库结构
 type DBField struct {
 	// 字段ID
-	Id int `json:"fieldId" gorm:"column:id;primary_key"`
+	ID int `json:"fieldId" gorm:"column:id;primary_key"`
 	// 对应 父级 ID (可能还是字段, 也可能是结构体)
-	ParentId int `json:"parentId" gorm:"column:parent_id"`
+	ParentID int `json:"parentId" gorm:"column:parent_id"`
 	// 字段类型
 	FType FieldType `json:"fieldType" gorm:"column:field_type" swaggertype:"integer"`
 	// 字段名
@@ -17,21 +18,23 @@ type DBField struct {
 	Sort int `json:"sort" gorm:"column:sort"`
 
 	// 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
-	StructId int `json:"structId" gorm:"column:struct_id"`
+	StructID int `json:"structId" gorm:"column:struct_id"`
 
 	// 当fieldType 为 map 时
-	MapKeyFieldId   int `json:"mapKeyFieldId" gorm:"column:map_key_field_id"`
-	MapValueFieldId int `json:"mapValueFieldId" gorm:"column:map_value_field_id"`
+	MapKeyFieldID   int `json:"mapKeyFieldId" gorm:"column:map_key_field_id"`
+	MapValueFieldID int `json:"mapValueFieldId" gorm:"column:map_value_field_id"`
 
 	// 如果是固定值, 那么记录
 	IsConst   bool   `json:"isConst" gorm:"column:is_const"`
 	ConstData []byte `json:"constData" gorm:"type:binary;column:const_data"`
 }
 
+// TableName field 对应数据库表名
 func (receiver DBField) TableName() string {
 	return "field_info"
 }
 
+// FieldList field 列表, 做排序使用
 type FieldList []DBField
 
 func (receiver FieldList) Len() int { return len(receiver) }
@@ -43,29 +46,40 @@ func (receiver FieldList) Less(i, j int) bool {
 		return false
 	}
 
-	return receiver[i].Id < receiver[j].Id
+	return receiver[i].ID < receiver[j].ID
 }
 
 func (receiver FieldList) Swap(i, j int) { receiver[i], receiver[j] = receiver[j], receiver[i] }
 
+// FieldType field 类型
 type FieldType int
 
+// ToInt 供检查器使用.返回type的int值
 func (receiver FieldType) ToInt() int {
 	return int(receiver)
 }
 
 const (
 	_ FieldType = iota
+	// FieldTypeString :字段类型: String
 	FieldTypeString
+	// FieldTypeBool :字段类型: Bool
 	FieldTypeBool
+	// FieldTypeInt :字段类型: Int
 	FieldTypeInt
+	// FieldTypeFloat :字段类型: Float
 	FieldTypeFloat
+	// FieldTypeTime :字段类型: Time
 	FieldTypeTime
+	// FieldTypeStruct :字段类型: Struct
 	FieldTypeStruct
+	// FieldTypeMap :字段类型: Map
 	FieldTypeMap
+	// FieldTypeInterface :字段类型: Interface
 	FieldTypeInterface
 )
 
+// GetAllFieldType 获取所有 支持的 field 类型
 func GetAllFieldType() []FieldType {
 	result := []FieldType{
 		FieldTypeString,
@@ -81,6 +95,7 @@ func GetAllFieldType() []FieldType {
 	return result
 }
 
+// GetAllFieldTypeInt 获取所有 支持的 field 类型 的 int 形式
 func GetAllFieldTypeInt() []int {
 	list := GetAllFieldType()
 	result := make([]int, len(list))

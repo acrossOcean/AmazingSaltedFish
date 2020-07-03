@@ -1,12 +1,12 @@
 package model
 
-// 链 定义
+// DBLinkInstance link instance 对应数据库结构
 type DBLinkInstance struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所属工程ID
-	ProjectInstanceId int `json:"projectInstanceId" gorm:"column:project_instance_id"`
+	ProjectInstanceID int `json:"projectInstanceId" gorm:"column:project_instance_id"`
 	// 所用 链 定义 id
-	DefineId int `json:"defineId" gorm:"column:define_id"`
+	DefineID int `json:"defineId" gorm:"column:define_id"`
 	// 链名称
 	Name string `json:"name" gorm:"column:name"`
 	// 注释
@@ -16,16 +16,18 @@ type DBLinkInstance struct {
 	IsShared bool `json:"isShared" gorm:"column:is_shared"`
 }
 
+// TableName link instance 对应数据库表名
 func (receiver DBLinkInstance) TableName() string {
 	return "link_instance"
 }
 
+// DBLinkParamInstance link param instance 对应数据库结构
 type DBLinkParamInstance struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所用 链参数 定义 id
-	DefineId int `json:"defineId" gorm:"column:define_id"`
+	DefineID int `json:"defineId" gorm:"column:define_id"`
 	// 所属 链 instance id
-	LinkInstanceId int `json:"linkInstanceId" gorm:"column:link_instance_id"`
+	LinkInstanceID int `json:"linkInstanceId" gorm:"column:link_instance_id"`
 	// 位置, 1.入参 2.出参
 	Location int `json:"isParam" gorm:"column:location"`
 	// 字段类型
@@ -42,9 +44,9 @@ type DBLinkParamInstance struct {
 	// 如果来自变量, 那么记录是来自 其它链还是其它Node
 	InputVarIsLink bool `json:"inputVarIsLink" gorm:"column:input_var_is_link"`
 	// 如果来自变量, 那么记录来源
-	InputVarDefineId int `json:"inputVarDefineId" gorm:"column:input_var_define_id"`
+	InputVarDefineID int `json:"inputVarDefineId" gorm:"column:input_var_define_id"`
 	// 如果来自变量, 那么记录来源
-	InputVarInstanceId int `json:"inputVarInstanceId" gorm:"column:input_var_instance_id"`
+	InputVarInstanceID int `json:"inputVarInstanceId" gorm:"column:input_var_instance_id"`
 
 	// 返回值类型 (如果返回变量, 那么不需要记录, 到时候直接用就可以)
 	OutputType ParamType `json:"outputType" gorm:"column:output_type"`
@@ -52,6 +54,7 @@ type DBLinkParamInstance struct {
 	OutputConst []byte `json:"outputConst" gorm:"type:binary;column:output_const"`
 }
 
+// TableName link param instance 对应数据库表名
 func (receiver DBLinkParamInstance) TableName() string {
 	return "link_param_instance"
 }

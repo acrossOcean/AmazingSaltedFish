@@ -22,7 +22,7 @@ definitions:
       sort:
         description: 排序位置
         type: integer
-      structId:
+      structID:
         description: 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
         type: integer
       type:
@@ -60,13 +60,13 @@ definitions:
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 对应 定义 id
         type: integer
-      firstLinkDefineId:
+      firstLinkDefineID:
         description: 第一个 link 信息
         type: integer
-      firstLinkInstanceId:
+      firstLinkInstanceID:
         type: integer
       generateLanguage:
         description: 实现工程所用语言及版本
@@ -94,7 +94,7 @@ definitions:
     type: object
   model.CreateNodeDefineReq:
     properties:
-      belongLinkDefineId:
+      belongLinkDefineID:
         description: 所属link id
         type: integer
       comment:
@@ -108,7 +108,7 @@ definitions:
         items:
           $ref: '#/definitions/model.NodeParamDefine'
         type: array
-      preNodeDefineId:
+      preNodeDefineID:
         description: 前一个nodeID , 第一个写-1
         type: integer
     type: object
@@ -129,13 +129,13 @@ definitions:
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 对应 定义 id
         type: integer
-      firstLinkDefineId:
+      firstLinkDefineID:
         description: 第一个 link 信息
         type: integer
-      firstLinkInstanceId:
+      firstLinkInstanceID:
         type: integer
       generateLanguage:
         description: 实现工程所用语言及版本
@@ -192,13 +192,13 @@ definitions:
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 对应 定义 id
         type: integer
-      firstLinkDefineId:
+      firstLinkDefineID:
         description: 第一个 link 信息
         type: integer
-      firstLinkInstanceId:
+      firstLinkInstanceID:
         type: integer
       generateLanguage:
         description: 实现工程所用语言及版本
@@ -256,7 +256,7 @@ definitions:
         items:
           type: integer
         type: array
-      fieldId:
+      fieldID:
         description: 字段ID
         type: integer
       fieldType:
@@ -268,21 +268,21 @@ definitions:
       isList:
         description: 是否为 列表
         type: boolean
-      mapKeyFieldId:
+      mapKeyFieldID:
         description: 当fieldType 为 map 时
         type: integer
-      mapValueFieldId:
+      mapValueFieldID:
         type: integer
       name:
         description: 字段名
         type: string
-      parentId:
+      parentID:
         description: 对应 父级 ID (可能还是字段, 也可能是结构体)
         type: integer
       sort:
         description: 排序位置
         type: integer
-      structId:
+      structID:
         description: 对应结构体ID, 当 FType 为 FieldTypeStruct 时 有用
         type: integer
     type: object
@@ -613,7 +613,7 @@ definitions:
         items:
           $ref: '#/definitions/model.LinkParamDefine'
         type: array
-      projectDefineId:
+      projectDefineID:
         description: 所属工程ID
         type: integer
     type: object
@@ -622,7 +622,7 @@ definitions:
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 所用 链 定义 id
         type: integer
       id:
@@ -637,7 +637,7 @@ definitions:
         items:
           $ref: '#/definitions/model.LinkParamInstance'
         type: array
-      projectInstanceId:
+      projectInstanceID:
         description: 所属工程ID
         type: integer
     type: object
@@ -663,13 +663,13 @@ definitions:
       isParam:
         description: 位置, 1.入参 2.出参
         type: integer
-      linkDefineId:
+      linkDefineID:
         description: 所属 链 id
         type: integer
-      mapKeyParamId:
+      mapKeyParamID:
         description: 当ParamType 为 map 时
         type: integer
-      mapValueParamId:
+      mapValueParamID:
         type: integer
       name:
         description: 字段名
@@ -677,7 +677,7 @@ definitions:
       sort:
         description: 排序位置
         type: integer
-      structId:
+      structID:
         description: 对应结构体ID, 当 FType 为 ParamTypeStruct 时 有用
         type: integer
       type:
@@ -689,7 +689,7 @@ definitions:
       comment:
         description: 字段注释
         type: string
-      defineId:
+      defineID:
         description: 所用 链参数 定义 id
         type: integer
       id:
@@ -702,10 +702,10 @@ definitions:
       inputType:
         description: 入参来源
         type: integer
-      inputVarDefineId:
+      inputVarDefineID:
         description: 如果来自变量, 那么记录来源
         type: integer
-      inputVarInstanceId:
+      inputVarInstanceID:
         description: 如果来自变量, 那么记录来源
         type: integer
       inputVarIsLink:
@@ -714,7 +714,7 @@ definitions:
       isParam:
         description: 位置, 1.入参 2.出参
         type: integer
-      linkInstanceId:
+      linkInstanceID:
         description: 所属 链 instance id
         type: integer
       name:
@@ -734,7 +734,7 @@ definitions:
     type: object
   model.NodeDefineInfo:
     properties:
-      belongLinkDefineId:
+      belongLinkDefineID:
         description: 所属 链 ID
         type: integer
       comment:
@@ -751,22 +751,22 @@ definitions:
         items:
           $ref: '#/definitions/model.NodeParamDefine'
         type: array
-      preNodeDefineId:
+      preNodeDefineID:
         description: 前一个NodeID, 第一个写-1
         type: integer
     type: object
   model.NodeInstanceInfo:
     properties:
-      belongLinkInstanceId:
+      belongLinkInstanceID:
         description: 所属 链 ID
         type: integer
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 所用 node define id
         type: integer
-      generatorId:
+      generatorID:
         description: 实现方式ID, 对应 "core_generator" id
         type: integer
       generatorName:
@@ -777,7 +777,7 @@ definitions:
       isLink:
         description: 是否是链, 如果不是链, 那么就是节点, 可以是链, 也可以是节点, 如果是链的话,对应记录下 链的ID, 如果是节点,那么记录节点的生成代码实现方式
         type: boolean
-      linkInstanceId:
+      linkInstanceID:
         description: 如果是链, 那么需要记录 link instance 的ID
         type: integer
       name:
@@ -803,21 +803,21 @@ definitions:
       isParam:
         description: 位置, 1.入参 2.出参
         type: integer
-      mapKeyParamId:
+      mapKeyParamID:
         description: 当ParamType 为 map 时
         type: integer
-      mapValueParamId:
+      mapValueParamID:
         type: integer
       name:
         description: 字段名
         type: string
-      nodeDefineId:
+      nodeDefineID:
         description: 所属节点id
         type: integer
       sort:
         description: 排序位置
         type: integer
-      structId:
+      structID:
         description: 对应结构体ID, 当 FType 为 ParamTypeStruct 时 有用
         type: integer
       type:
@@ -829,7 +829,7 @@ definitions:
       comment:
         description: 字段注释
         type: string
-      defineId:
+      defineID:
         description: 对应定义ID
         type: integer
       id:
@@ -842,10 +842,10 @@ definitions:
       inputType:
         description: 入参来源
         type: integer
-      inputVarDefineId:
+      inputVarDefineID:
         description: 如果来自变量, 那么记录来源
         type: integer
-      inputVarInstanceId:
+      inputVarInstanceID:
         description: 如果来自变量, 那么记录来源
         type: integer
       inputVarIsLink:
@@ -857,10 +857,10 @@ definitions:
       name:
         description: 字段名
         type: string
-      nodeDefineId:
+      nodeDefineID:
         description: 所属节点 define id
         type: integer
-      nodeInstanceId:
+      nodeInstanceID:
         description: 所属节点id
         type: integer
       outputConst:
@@ -897,13 +897,13 @@ definitions:
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 对应 定义 id
         type: integer
-      firstLinkDefineId:
+      firstLinkDefineID:
         description: 第一个 link 信息
         type: integer
-      firstLinkInstanceId:
+      firstLinkInstanceID:
         type: integer
       generateLanguage:
         description: 实现工程所用语言及版本
@@ -936,7 +936,7 @@ definitions:
       name:
         description: 字段名
         type: string
-      projectDefineId:
+      projectDefineID:
         description: 所属项目id
         type: integer
       sort:
@@ -961,10 +961,10 @@ definitions:
       inputType:
         description: 入参来源
         type: integer
-      inputVarDefineId:
+      inputVarDefineID:
         description: 如果来自变量, 那么记录来源
         type: integer
-      inputVarInstanceId:
+      inputVarInstanceID:
         description: 如果来自变量, 那么记录来源
         type: integer
       inputVarIsLink:
@@ -984,7 +984,7 @@ definitions:
       outputType:
         description: 返回值类型 (如果返回变量, 那么不需要记录, 到时候直接用就可以)
         type: integer
-      projectInstanceId:
+      projectInstanceID:
         description: 所属节点id
         type: integer
       type:
@@ -1010,7 +1010,7 @@ definitions:
         items:
           $ref: '#/definitions/model.LinkParamDefine'
         type: array
-      projectDefineId:
+      projectDefineID:
         description: 所属工程ID
         type: integer
     type: object
@@ -1031,7 +1031,7 @@ definitions:
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 所用 链 定义 id
         type: integer
       id:
@@ -1046,7 +1046,7 @@ definitions:
         items:
           $ref: '#/definitions/model.LinkParamInstance'
         type: array
-      projectInstanceId:
+      projectInstanceID:
         description: 所属工程ID
         type: integer
     type: object
@@ -1064,7 +1064,7 @@ definitions:
     type: object
   model.UpdateNodeDefineReq:
     properties:
-      belongLinkDefineId:
+      belongLinkDefineID:
         description: 所属 链 ID
         type: integer
       comment:
@@ -1081,7 +1081,7 @@ definitions:
         items:
           $ref: '#/definitions/model.NodeParamDefine'
         type: array
-      preNodeDefineId:
+      preNodeDefineID:
         description: 前一个NodeID, 第一个写-1
         type: integer
     type: object
@@ -1099,16 +1099,16 @@ definitions:
     type: object
   model.UpdateNodeInstanceReq:
     properties:
-      belongLinkInstanceId:
+      belongLinkInstanceID:
         description: 所属 链 ID
         type: integer
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 所用 node define id
         type: integer
-      generatorId:
+      generatorID:
         description: 实现方式ID, 对应 "core_generator" id
         type: integer
       generatorName:
@@ -1119,7 +1119,7 @@ definitions:
       isLink:
         description: 是否是链, 如果不是链, 那么就是节点, 可以是链, 也可以是节点, 如果是链的话,对应记录下 链的ID, 如果是节点,那么记录节点的生成代码实现方式
         type: boolean
-      linkInstanceId:
+      linkInstanceID:
         description: 如果是链, 那么需要记录 link instance 的ID
         type: integer
       name:
@@ -1176,13 +1176,13 @@ definitions:
       comment:
         description: 注释
         type: string
-      defineId:
+      defineID:
         description: 对应 定义 id
         type: integer
-      firstLinkDefineId:
+      firstLinkDefineID:
         description: 第一个 link 信息
         type: integer
-      firstLinkInstanceId:
+      firstLinkInstanceID:
         type: integer
       generateLanguage:
         description: 实现工程所用语言及版本

@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetNodeDefine 操作 node define api
 // @Summary 获取一个结构信息
 // @Tags node定义信息,获取,定义
 // @Accept json
@@ -39,6 +40,7 @@ func GetNodeDefine(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// GetNodeDefineList 操作 node define api
 // @Summary 获取结构信息列表
 // @Tags node定义信息,获取,列表,定义
 // @Accept json
@@ -60,6 +62,7 @@ func GetNodeDefineList(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// CreateNodeDefine 操作 node define api
 // @Summary 新建一个结构信息
 // @Tags node定义信息,新建,定义
 // @Accept json
@@ -90,6 +93,7 @@ func CreateNodeDefine(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// UpdateNodeDefine 操作 node define api
 // @Summary 更新一个结构信息
 // @Tags node定义信息,更新,定义
 // @Accept json
@@ -120,6 +124,7 @@ func UpdateNodeDefine(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// DeleteNodeDefine 操作 node define api
 // @Summary 删除一个结构信息
 // @Tags node定义信息,删除,定义
 // @Accept json

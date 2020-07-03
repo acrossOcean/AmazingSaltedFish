@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetProjectInstance 操作 project instance api
 // @Summary 获取一个结构信息
 // @Tags project实体信息,获取,实体
 // @Accept json
@@ -39,6 +40,7 @@ func GetProjectInstance(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// GetProjectInstanceList 操作 project instance api
 // @Summary 获取结构信息列表
 // @Tags project实体信息,获取,列表,实体
 // @Accept json
@@ -68,6 +70,7 @@ func GetProjectInstanceList(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// CreateProjectInstance 操作 project instance api
 // @Summary 新建一个结构信息
 // @Tags project实体信息,新建,实体
 // @Accept json
@@ -113,6 +116,7 @@ func CreateProjectInstance(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// UpdateProjectInstance 操作 project instance api
 // @Summary 更新一个结构信息
 // @Tags project实体信息,更新,实体
 // @Accept json
@@ -130,7 +134,7 @@ func UpdateProjectInstance(ctx *gin.Context) {
 	}
 
 	if !check.PassCheck(
-		check.NewIntChecker(reqInfo.Id, check.NewIntCheckOption(check.IntOperatorGT, 0)),
+		check.NewIntChecker(reqInfo.ID, check.NewIntCheckOption(check.IntOperatorGT, 0)),
 		check.NewStrChecker(reqInfo.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
 	) {
 		respParamError(ctx, reqInfo)
@@ -159,6 +163,7 @@ func UpdateProjectInstance(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// DeleteProjectInstance 操作 project instance api
 // @Summary 删除一个结构信息
 // @Tags project实体信息,删除,实体
 // @Accept json

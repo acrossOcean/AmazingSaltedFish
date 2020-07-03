@@ -1,10 +1,11 @@
 package check
 
-type Checker interface {
+type checker interface {
 	check() bool
 }
 
-func PassCheck(first Checker, more ...Checker) bool {
+// PassCheck 检查所有检查器是否都通过了
+func PassCheck(first checker, more ...checker) bool {
 	if !first.check() {
 		return false
 	}

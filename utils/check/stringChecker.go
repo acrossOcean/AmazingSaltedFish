@@ -2,12 +2,14 @@ package check
 
 import "AmazingSaltedFish/utils"
 
+// StrChecker : 字符串检查器, 提供字符串相关检查
 type StrChecker struct {
 	value string
 
 	options []StrCheckOption
 }
 
+// StrCheckOption : 字符串检查选项
 type StrCheckOption struct {
 	operator     StrOperator
 	intTarget    int
@@ -15,31 +17,33 @@ type StrCheckOption struct {
 	inStrTarget  []string
 }
 
+// StrOperator 字符串操作符
 type StrOperator int
 
 const (
 	_ StrOperator = iota
-	// len(str) < ?
+	// StrOperatorLenLT : len(str) < ?
 	StrOperatorLenLT
-	// len(str) <= ?
+	// StrOperatorLenLE : len(str) <= ?
 	StrOperatorLenLE
-	// len(str) = ?
+	// StrOperatorLenEQ : len(str) = ?
 	StrOperatorLenEQ
-	// len(str) != ?
+	// StrOperatorLenNE : len(str) != ?
 	StrOperatorLenNE
-	// len(str) > ?
+	// StrOperatorLenGT : len(str) > ?
 	StrOperatorLenGT
-	// len(str) >= ?
+	// StrOperatorLenGE : len(str) >= ?
 	StrOperatorLenGE
 
-	// str == ?
+	// StrOperatorStrEQ : str == ?
 	StrOperatorStrEQ
-	// str != ?
+	// StrOperatorStrNE : str != ?
 	StrOperatorStrNE
-	// str in (?,?, ....)
+	// StrOperatorStrIN : str in (?,?, ....)
 	StrOperatorStrIN
 )
 
+// NewStrChecker 返回一个字符串检查器
 func NewStrChecker(value string, options ...StrCheckOption) *StrChecker {
 	result := &StrChecker{
 		value: value,
@@ -53,6 +57,7 @@ func NewStrChecker(value string, options ...StrCheckOption) *StrChecker {
 	return result
 }
 
+// NewStrCheckOption 返回一个字符串检查选项
 func NewStrCheckOption(op StrOperator, intTarget int, strTarget string) StrCheckOption {
 	var result = StrCheckOption{
 		operator:     op,
@@ -63,6 +68,7 @@ func NewStrCheckOption(op StrOperator, intTarget int, strTarget string) StrCheck
 	return result
 }
 
+// NewStrCheckOptionInt 返回一个需要用到 int 对比的 检查选项
 func NewStrCheckOptionInt(op StrOperator, intTarget int) StrCheckOption {
 	var result = StrCheckOption{
 		operator:  op,
@@ -72,6 +78,7 @@ func NewStrCheckOptionInt(op StrOperator, intTarget int) StrCheckOption {
 	return result
 }
 
+// NewStrCheckOptionStr 返回一个需要用到 string 对比的 检查选项
 func NewStrCheckOptionStr(op StrOperator, strTarget string) StrCheckOption {
 	var result = StrCheckOption{
 		operator:     op,
@@ -81,6 +88,7 @@ func NewStrCheckOptionStr(op StrOperator, strTarget string) StrCheckOption {
 	return result
 }
 
+// NewStrCheckOptionIN 返回一个 in 检查 的选项
 func NewStrCheckOptionIN(strTargets []string) StrCheckOption {
 	var result = StrCheckOption{
 		operator:    StrOperatorStrIN,

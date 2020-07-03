@@ -7,9 +7,12 @@ import (
 	"github.com/acrossOcean/config"
 	"github.com/acrossOcean/log"
 	"github.com/jinzhu/gorm"
+
+	// 引入 db 依赖
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+// DBConfig 数据库配置信息
 type DBConfig struct {
 	UserName    string
 	Password    string
@@ -23,6 +26,7 @@ var (
 	_initDB sync.Once
 )
 
+// InitDB 初始化数据库连接
 func InitDB() (err error) {
 	_initDB.Do(func() {
 		err = InitDB()
@@ -46,6 +50,7 @@ func initDB() (err error) {
 	return err
 }
 
+// GetDB 获取数据库连接,如果没有会新建一个连接
 func GetDB() *gorm.DB {
 	_initDB.Do(func() {
 		if _DB == nil {
@@ -59,6 +64,7 @@ func GetDB() *gorm.DB {
 	return _DB
 }
 
+// CloseDB 关闭数据库连接
 func CloseDB() error {
 	return _DB.Close()
 }

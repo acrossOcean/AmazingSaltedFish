@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetNodeInstance 操作 node instance api
 // @Summary 获取一个结构信息
 // @Tags node实体信息,获取,实体
 // @Accept json
@@ -39,6 +40,7 @@ func GetNodeInstance(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// GetNodeInstanceList 操作 node instance api
 // @Summary 获取结构信息列表
 // @Tags node实体信息,获取,列表,实体
 // @Accept json
@@ -68,6 +70,7 @@ func GetNodeInstanceList(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// CreateNodeInstance 操作 node instance api
 // @Summary 新建一个结构信息
 // @Tags node实体信息,新建,实体
 // @Accept json
@@ -113,6 +116,7 @@ func CreateNodeInstance(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// UpdateNodeInstance 操作 node instance api
 // @Summary 更新一个结构信息
 // @Tags node实体信息,更新,实体
 // @Accept json
@@ -130,7 +134,7 @@ func UpdateNodeInstance(ctx *gin.Context) {
 	}
 
 	if !check.PassCheck(
-		check.NewIntChecker(reqInfo.Id, check.NewIntCheckOption(check.IntOperatorGT, 0)),
+		check.NewIntChecker(reqInfo.ID, check.NewIntCheckOption(check.IntOperatorGT, 0)),
 		check.NewStrChecker(reqInfo.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
 	) {
 		respParamError(ctx, reqInfo)
@@ -159,6 +163,7 @@ func UpdateNodeInstance(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// DeleteNodeInstance 操作 node instance api
 // @Summary 删除一个结构信息
 // @Tags node实体信息,删除,实体
 // @Accept json

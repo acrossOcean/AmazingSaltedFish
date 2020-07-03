@@ -1,21 +1,24 @@
 package model
 
+// DBProjectDefine project define 对应数据库结构
 type DBProjectDefine struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 工程名
 	Name string `json:"name" gorm:"column:name"`
 	// 注释
 	Comment string `json:"comment" gorm:"column:comment"`
 }
 
+// TableName project define 对应数据库表名
 func (receiver DBProjectDefine) TableName() string {
 	return "project_define"
 }
 
+// DBProjectParamDefine project param define 对应数据库结构
 type DBProjectParamDefine struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所属项目id
-	ProjectDefineId int `json:"projectDefineId" gorm:"column:project_define_id"`
+	ProjectDefineID int `json:"projectDefineId" gorm:"column:project_define_id"`
 	// 位置, 1.入参 2.出参
 	Location int `json:"isParam" gorm:"column:location"`
 	// 字段类型
@@ -30,6 +33,7 @@ type DBProjectParamDefine struct {
 	Sort int `json:"sort" gorm:"column:sort"`
 }
 
+// TableName project param define 对应数据库表名
 func (receiver DBProjectParamDefine) TableName() string {
 	return "project_param_define"
 }

@@ -1,26 +1,29 @@
 package model
 
+// DBNodeDefine node define 对应数据库结构
 type DBNodeDefine struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所属 链 ID
-	BelongLinkDefineId int `json:"belongLinkDefineId" gorm:"column:belong_link_define_id"`
+	BelongLinkDefineID int `json:"belongLinkDefineId" gorm:"column:belong_link_define_id"`
 	// 方法名
 	Name string `json:"name" gorm:"column:name"`
 	// 注释
 	Comment string `json:"comment" gorm:"column:comment"`
 
 	// 前一个NodeID, 第一个写-1
-	PreNodeDefineId int `json:"preNodeDefineId" gorm:"column:pre_node_define_id"`
+	PreNodeDefineID int `json:"preNodeDefineId" gorm:"column:pre_node_define_id"`
 }
 
+// TableName node instance 对应数据库表名
 func (receiver DBNodeDefine) TableName() string {
 	return "node_define"
 }
 
+// DBNodeParamDefine node param define 对应数据库结构
 type DBNodeParamDefine struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所属节点id
-	NodeDefineId int `json:"nodeDefineId" gorm:"column:node_define_id"`
+	NodeDefineID int `json:"nodeDefineId" gorm:"column:node_define_id"`
 	// 位置, 1.入参 2.出参
 	Location int `json:"isParam" gorm:"column:location"`
 	// 字段类型
@@ -35,13 +38,14 @@ type DBNodeParamDefine struct {
 	Sort int `json:"sort" gorm:"column:sort"`
 
 	// 对应结构体ID, 当 FType 为 ParamTypeStruct 时 有用
-	StructId int `json:"structId" gorm:"column:struct_id"`
+	StructID int `json:"structId" gorm:"column:struct_id"`
 
 	// 当ParamType 为 map 时
-	MapKeyParamId   int `json:"mapKeyParamId" gorm:"column:map_key_param_id"`
-	MapValueParamId int `json:"mapValueParamId" gorm:"column:map_value_param_id"`
+	MapKeyParamID   int `json:"mapKeyParamId" gorm:"column:map_key_param_id"`
+	MapValueParamID int `json:"mapValueParamId" gorm:"column:map_value_param_id"`
 }
 
+// TableName node param instance 对应数据库表名
 func (receiver DBNodeParamDefine) TableName() string {
 	return "node_param_define"
 }

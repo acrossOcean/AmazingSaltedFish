@@ -2,38 +2,42 @@ package check
 
 import "AmazingSaltedFish/utils"
 
+// IntChecker : 数字检查器, 提供数字相关检查
 type IntChecker struct {
 	value int
 
 	options []IntCheckOption
 }
 
+// IntCheckOption : int 检查选项
 type IntCheckOption struct {
 	operator IntOperator
 	target   int
 	inTarget []int
 }
 
+// IntOperator int 操作符
 type IntOperator int
 
 const (
 	_ IntOperator = iota
-	// <
+	// IntOperatorLT : <
 	IntOperatorLT
-	// <=
+	// IntOperatorLE : <=
 	IntOperatorLE
-	// =
+	// IntOperatorEQ : =
 	IntOperatorEQ
-	// !=
+	// IntOperatorNE : !=
 	IntOperatorNE
-	// >
+	// IntOperatorGT : >
 	IntOperatorGT
-	// >=
+	// IntOperatorGE : >=
 	IntOperatorGE
-	// in(list)
+	// IntOperatorIN : in(list)
 	IntOperatorIN
 )
 
+// NewIntChecker 返回一个 int 检查器
 func NewIntChecker(value int, options ...IntCheckOption) *IntChecker {
 	result := &IntChecker{
 		value: value,
@@ -47,6 +51,7 @@ func NewIntChecker(value int, options ...IntCheckOption) *IntChecker {
 	return result
 }
 
+// NewIntCheckOption 返回一个 int 检查选项
 func NewIntCheckOption(op IntOperator, target int) IntCheckOption {
 	var result = IntCheckOption{
 		operator: op,
@@ -56,6 +61,7 @@ func NewIntCheckOption(op IntOperator, target int) IntCheckOption {
 	return result
 }
 
+// NewIntCheckOptionIN 返回一个 in 检查 选项
 func NewIntCheckOptionIN(targets []int) IntCheckOption {
 	var result = IntCheckOption{
 		operator: IntOperatorIN,
@@ -96,19 +102,21 @@ func (receiver *IntChecker) check() bool {
 	return true
 }
 
-type IdChecker struct {
+// IDChecker ID检查器, 检查id的合法性
+type IDChecker struct {
 	value int
 }
 
-func NewIDChecker(value int) *IdChecker {
-	var result = &IdChecker{
+// NewIDChecker 返回一个 id 检查器
+func NewIDChecker(value int) *IDChecker {
+	var result = &IDChecker{
 		value: value,
 	}
 
 	return result
 }
 
-func (receiver *IdChecker) check() bool {
+func (receiver *IDChecker) check() bool {
 	return NewIntChecker(receiver.value,
 		NewIntCheckOption(IntOperatorGT, 0),
 	).check()

@@ -1,11 +1,12 @@
 package model
 
+// DBNodeInstance node define 对应数据库结构
 type DBNodeInstance struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 所属 链 ID
-	BelongLinkInstanceId int `json:"belongLinkInstanceId" gorm:"column:belong_link_instance_id"`
+	BelongLinkInstanceID int `json:"belongLinkInstanceId" gorm:"column:belong_link_instance_id"`
 	// 所用 node define id
-	DefineId int `json:"defineId" gorm:"column:define_id"`
+	DefineID int `json:"defineId" gorm:"column:define_id"`
 	// 方法名
 	Name string `json:"name" gorm:"column:name"`
 	// 注释
@@ -14,25 +15,27 @@ type DBNodeInstance struct {
 	// 是否是链, 如果不是链, 那么就是节点, 可以是链, 也可以是节点, 如果是链的话,对应记录下 链的ID, 如果是节点,那么记录节点的生成代码实现方式
 	IsLink bool `json:"isLink" gorm:"column:is_link"`
 	// 如果是链, 那么需要记录 link instance 的ID
-	LinkInstanceId int `json:"linkInstanceId" gorm:"column:link_instance_id"`
+	LinkInstanceID int `json:"linkInstanceId" gorm:"column:link_instance_id"`
 	// 实现方式ID, 对应 "core_generator" id
-	GeneratorId int `json:"generatorId" gorm:"column:generator_id"`
+	GeneratorID int `json:"generatorId" gorm:"column:generator_id"`
 	// 实现方式名称
 	GeneratorName string `json:"generatorName" gorm:"column:generator_name"`
 }
 
+// TableName node define 对应数据库表名
 func (receiver DBNodeInstance) TableName() string {
 	return "node_instance"
 }
 
+// DBNodeParamInstance node param define 对应数据库结构
 type DBNodeParamInstance struct {
-	Id int `json:"id" gorm:"column:id;primary_key"`
+	ID int `json:"id" gorm:"column:id;primary_key"`
 	// 对应定义ID
-	DefineId int `json:"defineId" gorm:"column:define_id"`
+	DefineID int `json:"defineId" gorm:"column:define_id"`
 	// 所属节点 define id
-	NodeDefineId int `json:"nodeDefineId" gorm:"column:node_define_id"`
+	NodeDefineID int `json:"nodeDefineId" gorm:"column:node_define_id"`
 	// 所属节点id
-	NodeInstanceId int `json:"nodeInstanceId" gorm:"column:node_instance_id"`
+	NodeInstanceID int `json:"nodeInstanceId" gorm:"column:node_instance_id"`
 	// 位置, 1.入参 2.出参
 	Location int `json:"isParam" gorm:"column:location"`
 	// 字段类型
@@ -49,9 +52,9 @@ type DBNodeParamInstance struct {
 	// 如果来自变量, 那么记录是来自 其它link还是其它Node
 	InputVarIsLink bool `json:"inputVarIsLink" gorm:"column:input_var_is_link"`
 	// 如果来自变量, 那么记录来源
-	InputVarDefineId int `json:"inputVarDefineId" gorm:"column:input_var_define_id"`
+	InputVarDefineID int `json:"inputVarDefineId" gorm:"column:input_var_define_id"`
 	// 如果来自变量, 那么记录来源
-	InputVarInstanceId int `json:"inputVarInstanceId" gorm:"column:input_var_instance_id"`
+	InputVarInstanceID int `json:"inputVarInstanceId" gorm:"column:input_var_instance_id"`
 
 	// 返回值类型 (如果返回变量, 那么不需要记录, 到时候直接用就可以)
 	OutputType ParamType `json:"outputType" gorm:"column:output_type"`
@@ -59,6 +62,7 @@ type DBNodeParamInstance struct {
 	OutputConst []byte `json:"outputConst" gorm:"type:binary;type:binary;column:output_const"`
 }
 
+// TableName node param define 对应数据库表名
 func (receiver DBNodeParamInstance) TableName() string {
 	return "node_param_instance"
 }

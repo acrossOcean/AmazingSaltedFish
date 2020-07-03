@@ -9,7 +9,7 @@ import (
 	"github.com/acrossOcean/log"
 )
 
-// 获取结构体详情
+// GetStruct 获取结构体详情
 func GetStruct(id int) (model.GetStructResp, error) {
 	var result model.GetStructResp
 	var info model.DBStructInfo
@@ -24,9 +24,9 @@ func GetStruct(id int) (model.GetStructResp, error) {
 	}
 
 	fields := make([]model.DBField, 0)
-	err = GetDB().Where("parent_id = ?", info.Id).Find(&fields).Error
+	err = GetDB().Where("parent_id = ?", info.ID).Find(&fields).Error
 	if err != nil {
-		log.Error("根据 结构体ID(%v) 获取 对应字段信息 错误:%s", info.Id, err.Error())
+		log.Error("根据 结构体ID(%v) 获取 对应字段信息 错误:%s", info.ID, err.Error())
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
 	}
 	sort.Sort(model.FieldList(fields))
@@ -38,7 +38,7 @@ func GetStruct(id int) (model.GetStructResp, error) {
 	return result, nil
 }
 
-// 获取结构体列表
+// GetStructList 获取结构体列表
 func GetStructList(req model.PageReq) (model.GetStructListResp, error) {
 	var result model.GetStructListResp
 	var infos []model.DBStructInfo
@@ -56,7 +56,7 @@ func GetStructList(req model.PageReq) (model.GetStructListResp, error) {
 
 	structIds := make([]int, len(infos))
 	for i, info := range infos {
-		structIds[i] = info.Id
+		structIds[i] = info.ID
 	}
 
 	fields := make([]model.DBField, 0)
@@ -75,7 +75,7 @@ func GetStructList(req model.PageReq) (model.GetStructListResp, error) {
 	}
 
 	for i, info := range infos {
-		if list, ok := fieldMap[info.Id]; ok {
+		if list, ok := fieldMap[info.ID]; ok {
 			sort.Sort(model.FieldList(list))
 			info.Fields = list
 			infos[i] = info
@@ -92,7 +92,7 @@ func GetStructList(req model.PageReq) (model.GetStructListResp, error) {
 	return result, nil
 }
 
-// 新建结构体
+// CreateStruct 新建结构体
 func CreateStruct(reqInfo model.CreateStructReq) (model.CreateStructResp, error) {
 	var result model.CreateStructResp
 
@@ -106,7 +106,7 @@ func CreateStruct(reqInfo model.CreateStructReq) (model.CreateStructResp, error)
 	}
 
 	for _, f := range data.Fields {
-		f.ParentId = data.Id
+		f.ParentID = data.ID
 		if err := tx.Save(&f).Error; err != nil {
 			tx.Rollback()
 			log.Error("保存 结构体的字段 信息错误:%s", err.Error())
@@ -115,26 +115,26 @@ func CreateStruct(reqInfo model.CreateStructReq) (model.CreateStructResp, error)
 	}
 
 	tx.Commit()
-	result.Id = data.Id
+	result.ID = data.ID
 	result.SetSuccess()
 	return result, nil
 }
 
-// 更新结构体
+// UpdateStruct 更新结构体
 func UpdateStruct(reqInfo model.UpdateStructReq) (model.UpdateStructResp, error) {
 	var result model.UpdateStructResp
 
 	tx := GetDB().Begin()
 	data := reqInfo.DBStructInfo
 
-	if err := tx.Where("id = ?", data.Id).Save(data).Error; err != nil {
+	if err := tx.Where("id = ?", data.ID).Save(data).Error; err != nil {
 		tx.Rollback()
 		log.Error("更新 结构体 信息错误:%s", err.Error())
 		return result, model.ReturnWithCode(model.CodeUnknownError, err)
 	}
 
 	for _, f := range data.Fields {
-		f.ParentId = data.Id
+		f.ParentID = data.ID
 		if err := tx.Save(&f).Error; err != nil {
 			tx.Rollback()
 			log.Error("保存 结构体的字段 信息错误:%s", err.Error())
@@ -143,12 +143,12 @@ func UpdateStruct(reqInfo model.UpdateStructReq) (model.UpdateStructResp, error)
 	}
 
 	tx.Commit()
-	result.Id = data.Id
+	result.ID = data.ID
 	result.SetSuccess()
 	return result, nil
 }
 
-// 删除结构体
+// DeleteStruct 删除结构体
 func DeleteStruct(id int) (model.DeleteStructResp, error) {
 	var result model.DeleteStructResp
 
@@ -167,7 +167,7 @@ func DeleteStruct(id int) (model.DeleteStructResp, error) {
 	}
 
 	tx.Commit()
-	result.Id = id
+	result.ID = id
 	result.SetSuccess()
 	return result, nil
 }

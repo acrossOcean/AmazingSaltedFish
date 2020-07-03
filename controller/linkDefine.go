@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetLinkDefine 操作 link define api
 // @Summary 获取一个结构信息
 // @Tags link定义信息,获取,定义
 // @Accept json
@@ -39,6 +40,7 @@ func GetLinkDefine(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// GetLinkDefineList 操作 link define api
 // @Summary 获取结构信息列表
 // @Tags link定义信息,获取,列表,定义
 // @Accept json
@@ -68,6 +70,7 @@ func GetLinkDefineList(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// CreateLinkDefine 操作 link define api
 // @Summary 新建一个结构信息
 // @Tags link定义信息,新建,定义
 // @Accept json
@@ -113,6 +116,7 @@ func CreateLinkDefine(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// UpdateLinkDefine 操作 link define api
 // @Summary 更新一个结构信息
 // @Tags link定义信息,更新,定义
 // @Accept json
@@ -130,7 +134,7 @@ func UpdateLinkDefine(ctx *gin.Context) {
 	}
 
 	if !check.PassCheck(
-		check.NewIntChecker(reqInfo.Id, check.NewIntCheckOption(check.IntOperatorGT, 0)),
+		check.NewIntChecker(reqInfo.ID, check.NewIntCheckOption(check.IntOperatorGT, 0)),
 		check.NewStrChecker(reqInfo.Comment, check.NewStrCheckOption(check.StrOperatorLenLE, 200, "")),
 	) {
 		respParamError(ctx, reqInfo)
@@ -159,6 +163,7 @@ func UpdateLinkDefine(ctx *gin.Context) {
 	respSuccessWithInfo(ctx, info)
 }
 
+// DeleteLinkDefine 操作 link define api
 // @Summary 删除一个结构信息
 // @Tags link定义信息,删除,定义
 // @Accept json
